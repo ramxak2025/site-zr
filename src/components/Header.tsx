@@ -3,34 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useTheme } from "./ThemeProvider";
-
-const SunIcon = () => (
-  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-  </svg>
-);
-
-const MoonIcon = () => (
-  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-  </svg>
-);
-
-function ThemeToggle({ className = "" }: { className?: string }) {
-  const { resolved, toggle } = useTheme();
-  return (
-    <button
-      onClick={toggle}
-      aria-label={resolved === "dark" ? "Включить светлую тему" : "Включить тёмную тему"}
-      className={`flex items-center justify-center rounded-lg transition-all duration-300 ${className}`}
-    >
-      <div className="theme-toggle-icon">
-        {resolved === "dark" ? <SunIcon /> : <MoonIcon />}
-      </div>
-    </button>
-  );
-}
 
 const BOTTOM_NAV = [
   {
@@ -106,7 +78,6 @@ export default function Header() {
               </nav>
 
               <div className="flex items-center gap-3">
-                <ThemeToggle className="w-9 h-9 border border-white/10 text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.06]" />
                 <a href="tel:+79884444485" className="text-sm text-white/40 hover:text-white transition-colors">
                   +7 988 444-44-85
                 </a>
@@ -124,17 +95,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile — only logo */}
-      <header className="fixed top-0 left-0 right-0 z-50 lg:hidden">
-        <div className="flex items-center justify-center h-12 px-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/images/logo.png" alt="ZR AUTO" width={32} height={24} className="h-5 w-auto brightness-0 invert" priority />
-            <span className="text-white font-bold text-xs tracking-wider opacity-70">ZR AUTO</span>
-          </Link>
-        </div>
-      </header>
-
-      {/* Mobile bottom nav */}
+      {/* Mobile bottom nav only — no top header */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-dark/95 backdrop-blur-xl border-t border-white/[0.06]">
         <div className="flex items-center justify-around h-14 max-w-lg mx-auto px-1">
           {BOTTOM_NAV.map((link) => {
@@ -167,8 +128,6 @@ export default function Header() {
               </Link>
             );
           })}
-          {/* Theme toggle in bottom nav */}
-          <ThemeToggle className="flex flex-col items-center gap-0.5 px-2 py-1 text-white/30 hover:text-white min-w-0 w-8 h-8" />
         </div>
       </nav>
     </>

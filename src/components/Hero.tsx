@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import AnimatedCounter from "./AnimatedCounter";
 import LiveBg from "./LiveBg";
 import type { HeroContent, BackgroundSettings } from "@/lib/content";
@@ -20,6 +21,21 @@ export default function Hero({ content, bgSettings }: { content?: HeroContent; b
           particleDensity={bg?.particleDensity}
         />
       )}
+
+      {/* Animated logo watermark — materializes from gas */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[2]">
+        <div className="anim-gas-reveal">
+          <Image
+            src="/images/logo.png"
+            alt=""
+            width={600}
+            height={450}
+            className="w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px] xl:w-[600px] h-auto brightness-0 invert opacity-100 select-none"
+            priority
+            aria-hidden="true"
+          />
+        </div>
+      </div>
 
       <div className="relative z-10 flex-1 flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 pb-8 md:pt-36">
