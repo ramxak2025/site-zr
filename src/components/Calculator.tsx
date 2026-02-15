@@ -42,41 +42,49 @@ export default function Calculator({ compact = false }: CalculatorProps) {
   };
 
   return (
-    <section id="calculator" className={`${compact ? "" : "py-20 md:py-28"} bg-surface`}>
-      <div className={compact ? "" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
+    <section id="calculator" className={`${compact ? "" : "relative py-24 md:py-32 overflow-hidden"}`}>
+      {!compact && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-light to-surface" />
+          <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/3 rounded-full blur-[150px]" />
+        </>
+      )}
+
+      <div className={compact ? "" : "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
         {!compact && (
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">Калькулятор окупаемости</h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Рассчитайте, сколько вы сэкономите после установки ГБО
+          <div className="text-center mb-16">
+            <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-3">Калькулятор</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">Рассчитайте свою экономию</h2>
+            <p className="text-white/40 text-lg max-w-2xl mx-auto">
+              Узнайте, сколько вы сэкономите после установки ГБО на ваш автомобиль
             </p>
           </div>
         )}
 
         <div className={`grid ${compact ? "gap-8" : "lg:grid-cols-2 gap-8 lg:gap-12"}`}>
           {/* Input panel */}
-          <div className="bg-surface-light rounded-2xl p-6 md:p-8 border border-white/5">
+          <div className="glass rounded-3xl p-6 md:p-8">
             <h3 className="text-white font-bold text-lg mb-6">Параметры</h3>
 
             {/* Fuel type */}
             <div className="mb-6">
-              <label className="text-gray-400 text-sm mb-2 block">Тип топлива</label>
+              <label className="text-white/40 text-sm mb-2 block">Тип топлива</label>
               <div className="flex gap-2">
                 {(["gasoline92", "gasoline95", "gasoline98"] as const).map((type) => (
                   <button
                     key={type}
                     onClick={() => setFuelType(type)}
-                    className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                       fuelType === type
-                        ? "bg-primary text-white"
-                        : "bg-white/5 text-gray-400 hover:bg-white/10"
+                        ? "glass-red text-primary"
+                        : "glass text-white/40 hover:text-white/60"
                     }`}
                   >
                     {fuelLabels[type]}
                   </button>
                 ))}
               </div>
-              <div className="text-right text-xs text-gray-500 mt-1">
+              <div className="text-right text-xs text-white/25 mt-1">
                 {FUEL_PRICES[fuelType]} ₽/л • Газ {FUEL_PRICES.lpg} ₽/л
               </div>
             </div>
@@ -84,7 +92,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
             {/* Consumption */}
             <div className="mb-6">
               <div className="flex justify-between mb-2">
-                <label className="text-gray-400 text-sm">Расход топлива</label>
+                <label className="text-white/40 text-sm">Расход топлива</label>
                 <span className="text-white font-medium text-sm">{consumption} л/100 км</span>
               </div>
               <input
@@ -94,9 +102,9 @@ export default function Calculator({ compact = false }: CalculatorProps) {
                 step="0.5"
                 value={consumption}
                 onChange={(e) => setConsumption(parseFloat(e.target.value))}
-                className="w-full"
+                className="w-full accent-primary"
               />
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <div className="flex justify-between text-xs text-white/25 mt-1">
                 <span>5 л</span>
                 <span>25 л</span>
               </div>
@@ -105,7 +113,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
             {/* Monthly mileage */}
             <div className="mb-6">
               <div className="flex justify-between mb-2">
-                <label className="text-gray-400 text-sm">Пробег в месяц</label>
+                <label className="text-white/40 text-sm">Пробег в месяц</label>
                 <span className="text-white font-medium text-sm">{formatPrice(mileage)} км</span>
               </div>
               <input
@@ -115,9 +123,9 @@ export default function Calculator({ compact = false }: CalculatorProps) {
                 step="100"
                 value={mileage}
                 onChange={(e) => setMileage(parseInt(e.target.value))}
-                className="w-full"
+                className="w-full accent-primary"
               />
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <div className="flex justify-between text-xs text-white/25 mt-1">
                 <span>500 км</span>
                 <span>5 000 км</span>
               </div>
@@ -126,7 +134,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
             {/* Install cost */}
             <div>
               <div className="flex justify-between mb-2">
-                <label className="text-gray-400 text-sm">Стоимость установки</label>
+                <label className="text-white/40 text-sm">Стоимость установки</label>
                 <span className="text-white font-medium text-sm">{formatPrice(installCost)} ₽</span>
               </div>
               <input
@@ -136,9 +144,9 @@ export default function Calculator({ compact = false }: CalculatorProps) {
                 step="1000"
                 value={installCost}
                 onChange={(e) => setInstallCost(parseInt(e.target.value))}
-                className="w-full"
+                className="w-full accent-primary"
               />
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <div className="flex justify-between text-xs text-white/25 mt-1">
                 <span>20 000 ₽</span>
                 <span>60 000 ₽</span>
               </div>
@@ -148,8 +156,8 @@ export default function Calculator({ compact = false }: CalculatorProps) {
           {/* Result panel */}
           <div className="space-y-4">
             {/* Main saving card */}
-            <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-6 md:p-8 border border-primary/20">
-              <div className="text-gray-400 text-sm mb-1">Ваша экономия в месяц</div>
+            <div className="glass-red rounded-3xl p-6 md:p-8 glow-red">
+              <div className="text-white/50 text-sm mb-1">Ваша экономия в месяц</div>
               <div className="text-4xl sm:text-5xl font-black text-white mb-2">
                 {formatPrice(result.monthlySaving)} ₽
               </div>
@@ -160,37 +168,37 @@ export default function Calculator({ compact = false }: CalculatorProps) {
 
             {/* Stats grid */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-surface-light rounded-xl p-4 border border-white/5">
-                <div className="text-gray-400 text-xs mb-1">Экономия в год</div>
+              <div className="glass rounded-2xl p-4">
+                <div className="text-white/30 text-xs mb-1">Экономия в год</div>
                 <div className="text-white font-bold text-xl">{formatPrice(result.yearlySaving)} ₽</div>
               </div>
-              <div className="bg-surface-light rounded-xl p-4 border border-white/5">
-                <div className="text-gray-400 text-xs mb-1">Окупаемость</div>
+              <div className="glass rounded-2xl p-4">
+                <div className="text-white/30 text-xs mb-1">Окупаемость</div>
                 <div className="text-white font-bold text-xl">
-                  {result.paybackMonths} {result.paybackMonths === 1 ? "мес" : result.paybackMonths < 5 ? "мес" : "мес"}
+                  {result.paybackMonths} мес
                 </div>
               </div>
-              <div className="bg-surface-light rounded-xl p-4 border border-white/5">
-                <div className="text-gray-400 text-xs mb-1">Бензин в месяц</div>
+              <div className="glass rounded-2xl p-4">
+                <div className="text-white/30 text-xs mb-1">Бензин в месяц</div>
                 <div className="text-red-400 font-bold text-xl">{formatPrice(result.monthlyGasolineCost)} ₽</div>
               </div>
-              <div className="bg-surface-light rounded-xl p-4 border border-white/5">
-                <div className="text-gray-400 text-xs mb-1">Газ в месяц</div>
+              <div className="glass rounded-2xl p-4">
+                <div className="text-white/30 text-xs mb-1">Газ в месяц</div>
                 <div className="text-primary font-bold text-xl">{formatPrice(result.monthlyLpgCost)} ₽</div>
               </div>
             </div>
 
             {/* CTA */}
-            <div className="bg-surface-light rounded-xl p-5 border border-white/5 flex flex-col sm:flex-row items-center gap-4">
+            <div className="glass-strong rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4">
               <div className="flex-1 text-center sm:text-left">
                 <div className="text-white font-semibold">Готовы экономить?</div>
-                <div className="text-gray-400 text-sm">Запишитесь на бесплатную консультацию</div>
+                <div className="text-white/40 text-sm">Запишитесь на бесплатную консультацию</div>
               </div>
               <a
                 href="https://wa.me/79884444485"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary hover:bg-primary-light text-white font-semibold px-6 py-3 rounded-full text-sm transition-all whitespace-nowrap hover:shadow-lg hover:shadow-primary/25"
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-light hover:to-primary text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-300 whitespace-nowrap hover:shadow-lg hover:shadow-primary/25"
               >
                 Записаться
               </a>
@@ -198,7 +206,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
 
             {!compact && (
               <div className="text-center">
-                <Link href="/installations" className="text-primary hover:text-primary-light text-sm font-medium transition-colors">
+                <Link href="/installations" className="text-primary hover:text-primary-light text-sm font-medium transition-colors duration-300">
                   Смотреть примеры установок &rarr;
                 </Link>
               </div>
