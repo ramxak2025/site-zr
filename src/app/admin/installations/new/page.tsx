@@ -79,7 +79,7 @@ export default function NewInstallation() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Car info */}
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">Информация об автомобиле</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -91,7 +91,7 @@ export default function NewInstallation() {
                   updateField("carModel", "");
                 }}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="">Выберите марку</option>
                 {CAR_BRANDS.map((b) => (
@@ -105,7 +105,7 @@ export default function NewInstallation() {
                 value={form.carModel}
                 onChange={(e) => updateField("carModel", e.target.value)}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="">Выберите модель</option>
                 {selectedBrand?.models.map((m) => (
@@ -120,7 +120,7 @@ export default function NewInstallation() {
                 value={form.year}
                 onChange={(e) => updateField("year", e.target.value)}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
             <div>
@@ -131,14 +131,14 @@ export default function NewInstallation() {
                 onChange={(e) => updateField("engineVolume", e.target.value)}
                 placeholder="1.6"
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
           </div>
         </div>
 
         {/* GBO info */}
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">Информация о ГБО</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -147,7 +147,7 @@ export default function NewInstallation() {
                 value={form.gboSystem}
                 onChange={(e) => updateField("gboSystem", e.target.value)}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="">Выберите систему</option>
                 {GBO_SYSTEMS.map((s) => (
@@ -161,7 +161,7 @@ export default function NewInstallation() {
                 value={form.gboGeneration}
                 onChange={(e) => updateField("gboGeneration", e.target.value)}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="4">4 поколение</option>
                 <option value="5">5 поколение</option>
@@ -175,7 +175,7 @@ export default function NewInstallation() {
                 value={form.cylinderVolume}
                 onChange={(e) => updateField("cylinderVolume", e.target.value)}
                 placeholder="42л"
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
             <div>
@@ -186,26 +186,26 @@ export default function NewInstallation() {
                 onChange={(e) => updateField("price", e.target.value)}
                 placeholder="30000"
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
           </div>
         </div>
 
         {/* Description */}
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">Описание</h2>
           <textarea
             value={form.description}
             onChange={(e) => updateField("description", e.target.value)}
             placeholder="Опишите выполненную работу..."
             rows={4}
-            className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none resize-none"
+            className="admin-input resize-none"
           />
         </div>
 
         {/* SEO */}
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">SEO настройки</h2>
           <div className="space-y-4">
             <div>
@@ -214,7 +214,7 @@ export default function NewInstallation() {
                 type="text"
                 value={form.seoTitle}
                 onChange={(e) => updateField("seoTitle", e.target.value)}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
               <div className="text-gray-500 text-xs mt-1">{form.seoTitle.length}/70 символов</div>
             </div>
@@ -224,7 +224,7 @@ export default function NewInstallation() {
                 value={form.seoDescription}
                 onChange={(e) => updateField("seoDescription", e.target.value)}
                 rows={2}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none resize-none"
+                className="admin-input resize-none"
               />
               <div className="text-gray-500 text-xs mt-1">{form.seoDescription.length}/160 символов</div>
             </div>
@@ -232,7 +232,7 @@ export default function NewInstallation() {
         </div>
 
         {/* Publish toggle */}
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <label className="flex items-center gap-3 cursor-pointer">
             <div
               className={`w-12 h-7 rounded-full p-1 transition-colors ${

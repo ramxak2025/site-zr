@@ -36,12 +36,11 @@ const BOTTOM_NAV = [
 ];
 
 const DESKTOP_LINKS = [
-  { href: "/#services", label: "Услуги" },
-  { href: "/#advantages", label: "Преимущества" },
+  { href: "/services", label: "Услуги" },
+  { href: "/about", label: "О компании" },
   { href: "/calculator", label: "Калькулятор" },
   { href: "/installations", label: "Работы" },
-  { href: "/#reviews", label: "Отзывы" },
-  { href: "/#contacts", label: "Контакты" },
+  { href: "/contacts", label: "Контакты" },
 ];
 
 export default function Header() {
@@ -59,15 +58,20 @@ export default function Header() {
             </Link>
 
             <nav className="flex items-center gap-1">
-              {DESKTOP_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="px-3 py-1.5 text-sm text-text-secondary hover:text-primary transition-colors duration-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {DESKTOP_LINKS.map((link) => {
+                const isActive = pathname === link.href || pathname.startsWith(link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-3 py-1.5 text-sm transition-colors duration-200 ${
+                      isActive ? "text-primary" : "text-text-secondary hover:text-primary"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </nav>
 
             <div className="flex items-center gap-4">

@@ -42,7 +42,7 @@ export default function AdminDashboard() {
           { label: "Черновики", value: drafts, color: "text-accent" },
           { label: "Марок авто", value: brands, color: "text-blue-400" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-surface-light rounded-xl p-5 border border-white/5">
+          <div key={stat.label} className="admin-card rounded-xl p-5">
             <div className="text-gray-400 text-sm mb-1">{stat.label}</div>
             <div className={`text-3xl font-black ${stat.color}`}>{stat.value}</div>
           </div>
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
         </Link>
         <Link
           href="/admin/installations"
-          className="bg-surface-light hover:bg-surface-lighter border border-white/5 rounded-xl p-6 transition-all group"
+          className="admin-card hover:bg-[#222226] rounded-xl p-6 transition-all group"
         >
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-white/10 transition-colors">
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
 
       {/* Recent installations */}
       <h2 className="text-lg font-bold text-white mb-4">Последние добавленные</h2>
-      <div className="bg-surface-light rounded-xl border border-white/5 overflow-hidden">
+      <div className="admin-card rounded-xl overflow-hidden">
         {installations.slice(0, 5).map((inst) => (
           <Link
             key={inst.id}

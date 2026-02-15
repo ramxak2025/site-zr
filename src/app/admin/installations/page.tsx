@@ -60,7 +60,7 @@ export default function AdminInstallations() {
         </Link>
       </div>
 
-      <div className="bg-surface-light rounded-xl border border-white/5 overflow-hidden">
+      <div className="admin-card rounded-xl overflow-hidden">
         {installations.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
             Пока нет установок. Добавьте первую!

@@ -30,15 +30,15 @@ export default async function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-6 mb-16">
               <div>
-                <span className="section-num">05 / РАБОТЫ</span>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-3 leading-[0.95]">
-                  Последние <span className="text-white/20">установки</span>
+                <span className="section-label">Работы</span>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
+                  Последние <span className="text-text/20">установки</span>
                 </h2>
               </div>
               <div className="flex items-end lg:justify-end">
                 <Link
                   href="/installations"
-                  className="group flex items-center gap-2 text-white/30 hover:text-primary font-medium transition-colors duration-300"
+                  className="group flex items-center gap-2 text-text-secondary hover:text-primary font-medium transition-colors duration-300"
                 >
                   Все работы
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

@@ -32,11 +32,11 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4 text-sm tracking-wider uppercase">Навигация</h3>
             <ul className="space-y-2">
-              <li><Link href="/#services" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Услуги</Link></li>
-              <li><Link href="/#advantages" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Преимущества</Link></li>
+              <li><Link href="/services" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Услуги</Link></li>
+              <li><Link href="/about" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">О компании</Link></li>
               <li><Link href="/calculator" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Калькулятор</Link></li>
-              <li><Link href="/installations" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Примеры установок</Link></li>
-              <li><Link href="/#reviews" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Отзывы</Link></li>
+              <li><Link href="/installations" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Работы</Link></li>
+              <li><Link href="/contacts" className="text-white/40 hover:text-primary text-sm transition-colors duration-200">Контакты</Link></li>
             </ul>
           </div>
 

@@ -31,9 +31,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-surface flex items-center justify-center pt-20">
+      <div className="min-h-screen bg-surface-dark flex items-center justify-center pt-20">
         <div className="w-full max-w-md mx-4">
-          <div className="bg-surface-light rounded-2xl p-8 border border-white/5">
+          <div className="admin-card rounded-2xl p-8">
             <div className="text-center mb-8">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white font-black text-xl mx-auto mb-4">
                 ZR
@@ -48,7 +48,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Пароль"
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none mb-4"
+                className="admin-input mb-4"
               />
               {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
               <button
@@ -71,12 +71,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-surface pt-20">
+    <div className="min-h-screen bg-surface-dark pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <aside className="lg:w-64 shrink-0">
-            <div className="bg-surface-light rounded-2xl p-4 border border-white/5 sticky top-24">
+            <div className="admin-card rounded-2xl p-4 sticky top-24">
               <div className="flex items-center gap-3 mb-6 px-2">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white font-black">
                   ZR

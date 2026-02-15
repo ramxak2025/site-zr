@@ -71,7 +71,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">Информация об автомобиле</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -83,7 +83,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                   updateField("carModel", "");
                 }}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="">Выберите</option>
                 {CAR_BRANDS.map((b) => (
@@ -97,7 +97,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 value={form.carModel}
                 onChange={(e) => updateField("carModel", e.target.value)}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="">Выберите</option>
                 {selectedBrand?.models.map((m) => (
@@ -112,7 +112,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 value={form.year}
                 onChange={(e) => updateField("year", e.target.value)}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
             <div>
@@ -121,13 +121,13 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 type="text"
                 value={form.engineVolume}
                 onChange={(e) => updateField("engineVolume", e.target.value)}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
           </div>
         </div>
 
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">Информация о ГБО</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -136,7 +136,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 value={form.gboSystem}
                 onChange={(e) => updateField("gboSystem", e.target.value)}
                 required
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="">Выберите</option>
                 {GBO_SYSTEMS.map((s) => (
@@ -149,7 +149,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
               <select
                 value={form.gboGeneration}
                 onChange={(e) => updateField("gboGeneration", e.target.value)}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               >
                 <option value="4">4 поколение</option>
                 <option value="5">5 поколение</option>
@@ -162,7 +162,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 type="text"
                 value={form.cylinderVolume}
                 onChange={(e) => updateField("cylinderVolume", e.target.value)}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
             <div>
@@ -171,23 +171,23 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 type="number"
                 value={form.price}
                 onChange={(e) => updateField("price", parseInt(e.target.value) || 0)}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
           </div>
         </div>
 
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">Описание</h2>
           <textarea
             value={form.description}
             onChange={(e) => updateField("description", e.target.value)}
             rows={4}
-            className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none resize-none"
+            className="admin-input resize-none"
           />
         </div>
 
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <h2 className="text-white font-bold mb-4">SEO</h2>
           <div className="space-y-4">
             <div>
@@ -196,7 +196,7 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 type="text"
                 value={form.seoTitle}
                 onChange={(e) => updateField("seoTitle", e.target.value)}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none"
+                className="admin-input"
               />
             </div>
             <div>
@@ -205,13 +205,13 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
                 value={form.seoDescription}
                 onChange={(e) => updateField("seoDescription", e.target.value)}
                 rows={2}
-                className="w-full bg-surface rounded-xl px-4 py-3 text-white border border-white/10 focus:border-primary focus:outline-none resize-none"
+                className="admin-input resize-none"
               />
             </div>
           </div>
         </div>
 
-        <div className="bg-surface-light rounded-xl p-6 border border-white/5">
+        <div className="admin-card p-6">
           <label className="flex items-center gap-3 cursor-pointer">
             <div
               className={`w-12 h-7 rounded-full p-1 transition-colors ${
