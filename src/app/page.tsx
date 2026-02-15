@@ -5,6 +5,7 @@ import Calculator from "@/components/Calculator";
 import Brands from "@/components/Brands";
 import PopularCars from "@/components/PopularCars";
 import CTA from "@/components/CTA";
+import Reviews from "@/components/Reviews";
 import InstallationCard from "@/components/InstallationCard";
 import { getPublishedInstallations } from "@/lib/storage";
 import Link from "next/link";
@@ -59,6 +60,7 @@ export default async function Home() {
         </section>
       )}
 
+      <Reviews />
       <PopularCars />
       <CTA />
     </>

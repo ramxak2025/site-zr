@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #16a34a;
-  --color-primary-light: #22c55e;
-  --color-primary-dark: #15803d;
+  --color-primary: #e11d24;
+  --color-primary-light: #ef4444;
+  --color-primary-dark: #b91c1c;
   --color-accent: #f59e0b;
   --color-accent-light: #fbbf24;
-  --color-surface: #111827;
-  --color-surface-light: #1f2937;
-  --color-surface-lighter: #374151;
+  --color-surface: #0a0a0a;
+  --color-surface-light: #141414;
+  --color-surface-lighter: #1e1e1e;
+  --color-gray-mid: #2a2a2a;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -23,9 +24,9 @@ body {
 }
 
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #1f2937; }
-::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+::-webkit-scrollbar-track { background: #141414; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
 
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
@@ -35,14 +36,14 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-@keyframes pulse-green {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(22,163,74,0); }
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(225,29,36,0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(225,29,36,0); }
 }
 
 .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
 .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
-.animate-pulse-green { animation: pulse-green 2s infinite; }
+.animate-pulse-red { animation: pulse-red 2s infinite; }
 
 .stagger > *:nth-child(1) { animation-delay: 0.05s; }
 .stagger > *:nth-child(2) { animation-delay: 0.1s; }
@@ -55,7 +56,7 @@ input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   height: 6px;
-  background: #374151;
+  background: #2a2a2a;
   border-radius: 3px;
   outline: none;
 }
@@ -64,7 +65,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #16a34a;
+  background: #e11d24;
   cursor: pointer;
   border: 3px solid #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -73,7 +74,14 @@ input[type="range"]::-moz-range-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #16a34a;
+  background: #e11d24;
   cursor: pointer;
   border: 3px solid #fff;
+}
+
+/* Bottom nav safe area for mobile */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
