@@ -49,13 +49,13 @@ export default function Header() {
 
   return (
     <>
-      {/* Desktop header — clean minimal */}
-      <header className="fixed top-0 left-0 right-0 z-50 hidden lg:block bg-surface/90 backdrop-blur-sm border-b border-white/5">
+      {/* Desktop header — light, clean */}
+      <header className="fixed top-0 left-0 right-0 z-50 hidden lg:block bg-white/90 backdrop-blur-sm shadow-sm shadow-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3 group">
               <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-7 w-auto" priority />
-              <div className="text-white font-bold text-sm tracking-wider">ZR AUTO</div>
+              <div className="text-text font-bold text-sm tracking-wider">ZR AUTO</div>
             </Link>
 
             <nav className="flex items-center gap-1">
@@ -63,7 +63,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-1.5 text-sm text-white/30 hover:text-white transition-colors duration-200"
+                  className="px-3 py-1.5 text-sm text-text-secondary hover:text-primary transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -71,14 +71,14 @@ export default function Header() {
             </nav>
 
             <div className="flex items-center gap-4">
-              <a href="tel:+79884444485" className="text-sm text-white/30 hover:text-white transition-colors">
+              <a href="tel:+79884444485" className="text-sm text-text-secondary hover:text-text transition-colors">
                 +7 988 444-44-85
               </a>
               <a
                 href="https://wa.me/79884444485"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary hover:bg-primary-light text-white text-sm font-bold px-5 py-2 transition-all duration-300"
+                className="bg-primary hover:bg-primary-light text-white text-sm font-bold px-5 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-primary/20"
               >
                 Записаться
               </a>
@@ -87,26 +87,26 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile top bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 lg:hidden bg-surface/95 backdrop-blur-sm border-b border-white/5">
+      {/* Mobile top bar — light */}
+      <header className="fixed top-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-sm shadow-sm shadow-black/5">
         <div className="flex items-center justify-between h-14 px-4">
           <Link href="/" className="flex items-center gap-2">
             <Image src="/images/logo.png" alt="ZR AUTO" width={32} height={24} className="h-6 w-auto" priority />
-            <span className="text-white font-bold text-sm tracking-wider">ZR AUTO</span>
+            <span className="text-text font-bold text-sm tracking-wider">ZR AUTO</span>
           </Link>
           <a
             href="https://wa.me/79884444485"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-primary text-white text-xs font-bold px-4 py-2"
+            className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg"
           >
             Записаться
           </a>
         </div>
       </header>
 
-      {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-surface border-t border-white/5">
+      {/* Mobile bottom nav — light */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-white border-t border-border">
         <div className="flex items-center justify-around h-14 max-w-lg mx-auto">
           {BOTTOM_NAV.map((link) => {
             const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -117,7 +117,7 @@ export default function Header() {
                   key={link.label}
                   href={link.href}
                   {...(link.isNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex flex-col items-center gap-0.5 px-3 py-1 text-white/20 active:text-primary transition-colors"
+                  className="flex flex-col items-center gap-0.5 px-3 py-1 text-text-muted active:text-primary transition-colors"
                 >
                   {link.icon}
                   <span className="text-[10px] font-medium">{link.label}</span>
@@ -130,7 +130,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={`flex flex-col items-center gap-0.5 px-3 py-1 transition-colors duration-200 ${
-                  isActive ? "text-primary" : "text-white/20"
+                  isActive ? "text-primary" : "text-text-muted"
                 }`}
               >
                 {link.icon}

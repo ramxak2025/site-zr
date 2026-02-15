@@ -17,7 +17,7 @@ function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} className={`w-3 h-3 ${i < count ? "text-amber-400" : "text-white/10"}`} fill="currentColor" viewBox="0 0 20 20">
+        <svg key={i} className={`w-3.5 h-3.5 ${i < count ? "text-amber-400" : "text-gray-200"}`} fill="currentColor" viewBox="0 0 20 20">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ))}
@@ -30,14 +30,14 @@ export default function Reviews() {
     <section id="reviews" className="py-24 md:py-32 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
-          <div>
-            <span className="section-num">05 / ОТЗЫВЫ</span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-3 leading-[0.95]">
-              Нам <span className="text-white/20">доверяют</span>
+          <div className="animate-reveal">
+            <span className="section-label">Отзывы</span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
+              Нам <span className="text-text-muted">доверяют</span>
             </h2>
           </div>
-          <div className="flex items-end lg:justify-end">
-            {/* Platforms inline */}
+          <div className="flex items-end lg:justify-end animate-reveal delay-1">
+            {/* Platform links */}
             <div className="flex gap-3">
               {PLATFORMS.map((p) => (
                 <a
@@ -45,12 +45,12 @@ export default function Reviews() {
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="card px-5 py-3 group"
+                  className="card-light px-5 py-3 group"
                 >
-                  <div className="text-white/50 text-xs font-medium group-hover:text-white transition-colors">{p.name}</div>
+                  <div className="text-text-secondary text-xs font-medium group-hover:text-text transition-colors">{p.name}</div>
                   <div className="flex items-center gap-1 mt-0.5">
-                    <svg className="w-3 h-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                    <span className="text-white/40 text-sm font-bold text-display">{p.rating}</span>
+                    <svg className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                    <span className="text-text font-bold text-sm text-display">{p.rating}</span>
                   </div>
                 </a>
               ))}
@@ -58,18 +58,20 @@ export default function Reviews() {
           </div>
         </div>
 
-        {/* Reviews — 2 column masonry-style */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+        {/* Review cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {REVIEWS.map((review, i) => (
-            <div key={i} className="card-accent p-6 md:p-8">
+            <div key={i} className={`card-light p-6 md:p-8 animate-reveal delay-${Math.min(i + 2, 8)}`}>
               <Stars count={review.rating} />
-              <p className="text-white/40 text-sm leading-relaxed mt-4 mb-6">&ldquo;{review.text}&rdquo;</p>
-              <div className="flex items-center justify-between border-t border-white/5 pt-4">
+              <p className="text-text-secondary text-sm leading-relaxed mt-4 mb-6">&ldquo;{review.text}&rdquo;</p>
+              <div className="flex items-center justify-between border-t border-border pt-4">
                 <div>
-                  <div className="text-white font-semibold text-sm">{review.name}</div>
-                  <div className="text-white/20 text-xs">{review.car}</div>
+                  <div className="text-text font-semibold text-sm">{review.name}</div>
+                  <div className="text-text-muted text-xs">{review.car}</div>
                 </div>
-                <span className="text-[10px] text-white/15 border border-white/5 px-2 py-1 font-medium tracking-wider uppercase">{review.platform}</span>
+                <span className="text-[10px] text-text-muted border border-border px-2 py-1 rounded-md font-medium tracking-wider uppercase">
+                  {review.platform}
+                </span>
               </div>
             </div>
           ))}
