@@ -35,31 +35,40 @@ interface VaporOrb {
   baseAlpha: number;
 }
 
-/* ── Preset vapor orbs (background haze) ───────── */
-const ORB_PRESETS: Omit<VaporOrb, "cx" | "cy">[] = [
+/* ── Preset vapor orbs ───────── */
+const ORB_PRESETS_DARK: Omit<VaporOrb, "cx" | "cy">[] = [
   { r: 0.35, color: [225, 29, 36],  phaseX: 0,   phaseY: 0.7, speedX: 0.0003,  speedY: 0.00025, ampX: 0.12, ampY: 0.08, baseAlpha: 0.06 },
   { r: 0.28, color: [249, 115, 22], phaseX: 1.2, phaseY: 0,   speedX: 0.00035, speedY: 0.0003,  ampX: 0.10, ampY: 0.12, baseAlpha: 0.04 },
   { r: 0.22, color: [200, 200, 220],phaseX: 2.4, phaseY: 1.5, speedX: 0.00028, speedY: 0.00032, ampX: 0.15, ampY: 0.08, baseAlpha: 0.035 },
   { r: 0.18, color: [180, 185, 200],phaseX: 0.5, phaseY: 2.0, speedX: 0.0004,  speedY: 0.00028, ampX: 0.08, ampY: 0.10, baseAlpha: 0.03 },
 ];
 
+const ORB_PRESETS_LIGHT: Omit<VaporOrb, "cx" | "cy">[] = [
+  { r: 0.35, color: [225, 29, 36],  phaseX: 0,   phaseY: 0.7, speedX: 0.0003,  speedY: 0.00025, ampX: 0.12, ampY: 0.08, baseAlpha: 0.03 },
+  { r: 0.28, color: [249, 115, 22], phaseX: 1.2, phaseY: 0,   speedX: 0.00035, speedY: 0.0003,  ampX: 0.10, ampY: 0.12, baseAlpha: 0.02 },
+  { r: 0.22, color: [160, 160, 175],phaseX: 2.4, phaseY: 1.5, speedX: 0.00028, speedY: 0.00032, ampX: 0.15, ampY: 0.08, baseAlpha: 0.02 },
+  { r: 0.18, color: [140, 145, 160],phaseX: 0.5, phaseY: 2.0, speedX: 0.0004,  speedY: 0.00028, ampX: 0.08, ampY: 0.10, baseAlpha: 0.015 },
+];
+
 /* ── Smoke colors ────────────────────────────────── */
-const SMOKE_COLORS: [number, number, number][] = [
-  [220, 220, 230], // near-white
-  [200, 200, 215], // light grey
-  [180, 185, 200], // medium grey
-  [225, 80, 80],   // subtle red
-  [240, 150, 90],  // subtle orange
-  [255, 255, 255], // pure white
+const SMOKE_COLORS_DARK: [number, number, number][] = [
+  [220, 220, 230], [200, 200, 215], [180, 185, 200],
+  [225, 80, 80], [240, 150, 90], [255, 255, 255],
+];
+
+const SMOKE_COLORS_LIGHT: [number, number, number][] = [
+  [120, 120, 135], [140, 140, 155], [160, 160, 170],
+  [180, 60, 60], [200, 120, 70], [100, 100, 115],
 ];
 
 /* ── Props ────────────────────────────────────────── */
 interface LiveBgProps {
   className?: string;
-  smokeIntensity?: number;   // 0-100, default 70
-  accentMix?: number;        // 0-100, default 15
-  speed?: number;            // 0-100, default 50
-  particleDensity?: number;  // 0-100, default 60
+  smokeIntensity?: number;
+  accentMix?: number;
+  speed?: number;
+  particleDensity?: number;
+  light?: boolean;
 }
 
 /* ── Component ────────────────────────────────────── */
@@ -69,6 +78,7 @@ export default function LiveBg({
   accentMix = 15,
   speed = 50,
   particleDensity = 60,
+  light = false,
 }: LiveBgProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse     = useRef({ x: -9999, y: -9999 });
@@ -86,17 +96,20 @@ export default function LiveBg({
     let w = 0, h = 0, rafId = 0;
 
     const isMobile       = window.innerWidth < 768;
-    const densityMul     = particleDensity / 60;       // 1.0 at default
-    const speedMul       = speed / 50;                 // 1.0 at default
-    const intensityMul   = smokeIntensity / 70;        // 1.0 at default
-    const accentChance   = accentMix / 100;            // 0.15 at default
+    const densityMul     = particleDensity / 60;
+    const speedMul       = speed / 50;
+    const intensityMul   = smokeIntensity / 70;
+    const accentChance   = accentMix / 100;
+    const alphaMul       = light ? 0.5 : 1;
 
     const MAX_PUFFS      = Math.round((isMobile ? 18 : 40) * densityMul);
     const MAX_WISPS      = Math.round((isMobile ? 15 : 35) * densityMul);
     const PUFF_RATE      = (isMobile ? 0.04 : 0.09) * densityMul;
     const WISP_RATE      = (isMobile ? 0.06 : 0.14) * densityMul;
 
-    /* ── Resize ── */
+    const SMOKE_COLORS = light ? SMOKE_COLORS_LIGHT : SMOKE_COLORS_DARK;
+    const ORB_PRESETS = light ? ORB_PRESETS_LIGHT : ORB_PRESETS_DARK;
+
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
       w = rect.width;
@@ -106,7 +119,6 @@ export default function LiveBg({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
-    /* ── Spawn smoke puff ── */
     const spawnPuff = () => {
       if (puffs.current.length >= MAX_PUFFS) return;
       const isAccent = Math.random() < accentChance;
@@ -129,7 +141,6 @@ export default function LiveBg({
       });
     };
 
-    /* ── Spawn steam wisp ── */
     const spawnWisp = () => {
       if (wisps.current.length >= MAX_WISPS) return;
       wisps.current.push({
@@ -140,11 +151,10 @@ export default function LiveBg({
         size: 1 + Math.random() * 2,
         life: 0,
         maxLife: 80 + Math.random() * 120,
-        alpha: 0.15 + Math.random() * 0.2,
+        alpha: (0.15 + Math.random() * 0.2) * alphaMul,
       });
     };
 
-    /* ── Mouse tracking ── */
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.current.x = e.clientX - rect.left;
@@ -162,7 +172,6 @@ export default function LiveBg({
     resize();
     window.addEventListener("resize", resize);
 
-    /* ══════════════ DRAW LOOP ══════════════ */
     const draw = () => {
       frame.current++;
       const t = frame.current;
@@ -172,7 +181,7 @@ export default function LiveBg({
       const my = mouse.current.y;
       const mouseIn = mx > 0 && mx < w && my > 0 && my < h;
 
-      /* ── Layer 1 : Background vapor orbs ── */
+      /* Layer 1 : Background vapor orbs */
       ORB_PRESETS.forEach((o) => {
         const cx = (0.5 + Math.sin(t * o.speedX + o.phaseX) * o.ampX) * w;
         const cy = (0.5 + Math.cos(t * o.speedY + o.phaseY) * o.ampY) * h;
@@ -187,15 +196,18 @@ export default function LiveBg({
         ctx.fill();
       });
 
-      /* ── Layer 2 : Bottom haze gradient ── */
+      /* Layer 2 : Bottom haze gradient */
+      const hazeColor = light ? "140, 140, 155" : "200, 200, 215";
+      const hazeAlpha1 = light ? 0.02 : 0.035;
+      const hazeAlpha2 = light ? 0.008 : 0.015;
       const haze = ctx.createLinearGradient(0, h, 0, h * 0.55);
-      haze.addColorStop(0, "rgba(200, 200, 215, 0.035)");
-      haze.addColorStop(0.5, "rgba(180, 185, 200, 0.015)");
-      haze.addColorStop(1, "rgba(180, 185, 200, 0)");
+      haze.addColorStop(0, `rgba(${hazeColor}, ${hazeAlpha1})`);
+      haze.addColorStop(0.5, `rgba(${hazeColor}, ${hazeAlpha2})`);
+      haze.addColorStop(1, `rgba(${hazeColor}, 0)`);
       ctx.fillStyle = haze;
       ctx.fillRect(0, h * 0.4, w, h * 0.6);
 
-      /* ── Layer 3 : Smoke puffs ── */
+      /* Layer 3 : Smoke puffs */
       if (Math.random() < PUFF_RATE) spawnPuff();
 
       puffs.current = puffs.current.filter((p) => {
@@ -203,10 +215,8 @@ export default function LiveBg({
         if (p.life > p.maxLife) return false;
 
         const progress = p.life / p.maxLife;
-
-        // Smooth fade curve: quick fade in, sustain, slow fade out
         let alpha: number;
-        const baseAlpha = 0.1 * intensityMul;
+        const baseAlpha = 0.1 * intensityMul * alphaMul;
         if (progress < 0.08) {
           alpha = (progress / 0.08) * baseAlpha;
         } else if (progress > 0.5) {
@@ -215,20 +225,15 @@ export default function LiveBg({
           alpha = baseAlpha;
         }
 
-        // Expand radius smoothly
         const targetR = p.maxRadius * Math.min(progress * 2, 1);
         p.radius += (targetR - p.radius) * 0.02;
 
-        // Wobble drift
         p.wobblePhase += p.wobbleSpeed;
         p.x += p.vx + Math.sin(p.wobblePhase) * p.wobbleAmp;
         p.y += p.vy;
-
-        // Decelerate as smoke rises
         p.vy *= 0.9985;
         p.vx *= 0.998;
 
-        // Mouse dispersal
         if (mouseIn) {
           const dx = p.x - mx;
           const dy = p.y - my;
@@ -240,7 +245,6 @@ export default function LiveBg({
           }
         }
 
-        // Draw smoke puff with soft radial gradient
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
         g.addColorStop(0, `rgba(${p.color.join(",")}, ${alpha})`);
         g.addColorStop(0.4, `rgba(${p.color.join(",")}, ${alpha * 0.6})`);
@@ -255,8 +259,11 @@ export default function LiveBg({
         return true;
       });
 
-      /* ── Layer 4 : Steam wisps (small fast particles) ── */
+      /* Layer 4 : Steam wisps */
       if (Math.random() < WISP_RATE) spawnWisp();
+
+      const wispColor = light ? "100, 100, 115" : "220, 220, 235";
+      const wispCoreColor = light ? "80, 80, 95" : "240, 240, 250";
 
       wisps.current = wisps.current.filter((w2) => {
         w2.life++;
@@ -267,12 +274,10 @@ export default function LiveBg({
           ? (progress / 0.15) * w2.alpha
           : w2.alpha * (1 - (progress - 0.15) / 0.85);
 
-        // Drift with turbulence
         w2.x += w2.vx + Math.sin(t * 0.02 + w2.y * 0.01) * 0.3;
         w2.y += w2.vy;
         w2.vy *= 0.997;
 
-        // Mouse dispersal
         if (mouseIn) {
           const dx = w2.x - mx;
           const dy = w2.y - my;
@@ -284,16 +289,15 @@ export default function LiveBg({
           }
         }
 
-        // Draw wisp: glow + core
         const gr = ctx.createRadialGradient(w2.x, w2.y, 0, w2.x, w2.y, w2.size * 5);
-        gr.addColorStop(0, `rgba(220, 220, 235, ${fadeAlpha * 0.3})`);
-        gr.addColorStop(1, `rgba(220, 220, 235, 0)`);
+        gr.addColorStop(0, `rgba(${wispColor}, ${fadeAlpha * 0.3})`);
+        gr.addColorStop(1, `rgba(${wispColor}, 0)`);
         ctx.fillStyle = gr;
         ctx.beginPath();
         ctx.arc(w2.x, w2.y, w2.size * 5, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = `rgba(240, 240, 250, ${fadeAlpha})`;
+        ctx.fillStyle = `rgba(${wispCoreColor}, ${fadeAlpha})`;
         ctx.beginPath();
         ctx.arc(w2.x, w2.y, w2.size, 0, Math.PI * 2);
         ctx.fill();
@@ -301,11 +305,17 @@ export default function LiveBg({
         return true;
       });
 
-      /* ── Layer 5 : Mouse gas glow ── */
+      /* Layer 5 : Mouse gas glow */
       if (mouseIn) {
+        const glowColor = light
+          ? "rgba(225, 29, 36, 0.025)"
+          : "rgba(225, 29, 36, 0.045)";
+        const glowMid = light
+          ? "rgba(160, 160, 175, 0.015)"
+          : "rgba(200, 200, 215, 0.025)";
         const mg = ctx.createRadialGradient(mx, my, 0, mx, my, 200);
-        mg.addColorStop(0,   "rgba(225, 29, 36, 0.045)");
-        mg.addColorStop(0.3, "rgba(200, 200, 215, 0.025)");
+        mg.addColorStop(0,   glowColor);
+        mg.addColorStop(0.3, glowMid);
         mg.addColorStop(1,   "rgba(0, 0, 0, 0)");
         ctx.fillStyle = mg;
         ctx.beginPath();
@@ -324,7 +334,7 @@ export default function LiveBg({
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("touchmove", onTouchMove);
     };
-  }, [smokeIntensity, accentMix, speed, particleDensity]);
+  }, [smokeIntensity, accentMix, speed, particleDensity, light]);
 
   return (
     <canvas

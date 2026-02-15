@@ -96,17 +96,16 @@ export default async function InstallationPage({ params }: PageProps) {
 function InstallationDetail({ installation }: { installation: NonNullable<Awaited<ReturnType<typeof getInstallationBySlug>>> }) {
   return (
     <div className="inner-page">
-      {/* Dark banner */}
       <div className="page-banner pt-28 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
-            <span className="sep text-white/20">/</span>
-            <Link href="/installations" className="text-white/60 hover:text-white transition-colors">Установки</Link>
-            <span className="sep text-white/20">/</span>
-            <span className="text-white/40">{installation.carBrand} {installation.carModel}</span>
+            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
+            <span className="sep text-border">/</span>
+            <Link href="/installations" className="text-text-secondary hover:text-primary transition-colors">Установки</Link>
+            <span className="sep text-border">/</span>
+            <span className="text-text-muted">{installation.carBrand} {installation.carModel}</span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl font-black text-text mb-4">
             Установка ГБО на {installation.carBrand} {installation.carModel} {installation.year}
           </h1>
         </div>
@@ -199,20 +198,19 @@ function BrandModelPage({
 
   return (
     <div className="inner-page">
-      {/* Dark banner */}
       <div className="page-banner pt-28 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
-            <span className="sep text-white/20">/</span>
-            <Link href="/installations" className="text-white/60 hover:text-white transition-colors">Установки</Link>
-            <span className="sep text-white/20">/</span>
-            <span className="text-white/40">Установка ГБО на {fullName}</span>
+            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
+            <span className="sep text-border">/</span>
+            <Link href="/installations" className="text-text-secondary hover:text-primary transition-colors">Установки</Link>
+            <span className="sep text-border">/</span>
+            <span className="text-text-muted">Установка ГБО на {fullName}</span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl font-black text-text mb-4">
             Установка ГБО на {fullName} в Махачкале
           </h1>
-          <p className="text-white/60 text-lg max-w-2xl">
+          <p className="text-text-secondary text-lg max-w-2xl">
             Профессиональная установка газобаллонного оборудования на {fullName}. Итальянские системы OMVL, Lovato, BRC. Гарантия 2 года. Экономия до 50% на топливе.
           </p>
         </div>

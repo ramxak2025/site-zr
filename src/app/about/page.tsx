@@ -26,12 +26,12 @@ export default async function AboutPage() {
       <section className="page-banner pt-28 pb-16">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
-            <span className="sep text-white/20">/</span>
-            <span className="current text-white/40">О компании</span>
+            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
+            <span className="sep text-border">/</span>
+            <span className="current text-text-muted">О компании</span>
           </nav>
-          <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight">О компании</h1>
-          <p className="mt-4 text-lg text-white/50 max-w-2xl">{about.intro}</p>
+          <h1 className="text-4xl sm:text-5xl font-black text-text leading-tight">О компании</h1>
+          <p className="mt-4 text-lg text-text-secondary max-w-2xl">{about.intro}</p>
         </div>
       </section>
 

@@ -26,26 +26,26 @@ export default function Footer({ contacts }: { contacts?: ContactsContent }) {
   ];
 
   return (
-    <footer id="contacts" className="bg-dark border-t border-white/[0.06]">
+    <footer id="contacts" className="bg-surface-alt border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-8 w-auto brightness-0 invert" />
+              <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-8 w-auto" />
               <div>
-                <div className="text-white font-bold tracking-wider">ZR AUTO</div>
-                <div className="text-white/30 text-xs">Центр установки ГБО</div>
+                <div className="text-text font-bold tracking-wider">ZR AUTO</div>
+                <div className="text-text-muted text-xs">Центр установки ГБО</div>
               </div>
             </div>
-            <p className="text-white/30 text-sm leading-relaxed">
+            <p className="text-text-muted text-sm leading-relaxed">
               Профессиональная установка газобаллонного оборудования в Махачкале. Более 10 лет опыта.
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm tracking-wider uppercase">Навигация</h3>
+            <h3 className="text-text font-semibold mb-4 text-sm tracking-wider uppercase">Навигация</h3>
             <ul className="space-y-2.5">
               {[
                 { href: "/services", label: "Услуги" },
@@ -55,7 +55,7 @@ export default function Footer({ contacts }: { contacts?: ContactsContent }) {
                 { href: "/contacts", label: "Контакты" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-white/30 hover:text-white text-sm transition-colors duration-200">{link.label}</Link>
+                  <Link href={link.href} className="text-text-muted hover:text-primary text-sm transition-colors duration-200">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -63,20 +63,20 @@ export default function Footer({ contacts }: { contacts?: ContactsContent }) {
 
           {/* Contacts */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm tracking-wider uppercase">Контакты</h3>
+            <h3 className="text-text font-semibold mb-4 text-sm tracking-wider uppercase">Контакты</h3>
             <ul className="space-y-3">
               <li>
-                <a href={`tel:${phoneRaw}`} className="text-white/30 hover:text-white text-sm transition-colors duration-200 flex items-center gap-2.5">
+                <a href={`tel:${phoneRaw}`} className="text-text-muted hover:text-primary text-sm transition-colors duration-200 flex items-center gap-2.5">
                   <span className="w-1 h-1 bg-primary rounded-full shrink-0" />{phone}
                 </a>
               </li>
               <li>
-                <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors duration-200 flex items-center gap-2.5">
+                <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary text-sm transition-colors duration-200 flex items-center gap-2.5">
                   <span className="w-1 h-1 bg-primary rounded-full shrink-0" />WhatsApp
                 </a>
               </li>
               <li>
-                <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white text-sm transition-colors duration-200 flex items-start gap-2.5">
+                <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary text-sm transition-colors duration-200 flex items-start gap-2.5">
                   <span className="w-1 h-1 bg-primary rounded-full shrink-0 mt-1.5" />
                   <span>{address}<br /><span className="text-primary text-xs">Яндекс Карты &rarr;</span></span>
                 </a>
@@ -86,12 +86,12 @@ export default function Footer({ contacts }: { contacts?: ContactsContent }) {
 
           {/* Schedule */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm tracking-wider uppercase">Режим работы</h3>
-            <ul className="space-y-2 text-sm text-white/30">
+            <h3 className="text-text font-semibold mb-4 text-sm tracking-wider uppercase">Режим работы</h3>
+            <ul className="space-y-2 text-sm text-text-muted">
               {workHours.map((wh) => (
                 <li key={wh.days} className="flex justify-between">
                   <span>{wh.days}</span>
-                  <span className="text-white/50">{wh.hours}</span>
+                  <span className="text-text-secondary">{wh.hours}</span>
                 </li>
               ))}
             </ul>
@@ -102,7 +102,7 @@ export default function Footer({ contacts }: { contacts?: ContactsContent }) {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 border border-white/10 rounded-lg flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-200"
+                  className="w-9 h-9 border border-border rounded-lg flex items-center justify-center text-text-muted hover:text-primary hover:border-primary/30 hover:bg-primary/[0.03] transition-all duration-200"
                   aria-label={s.name}
                 >
                   {SOCIAL_ICONS[s.name] ?? <span className="text-xs font-bold">{s.name[0]}</span>}
@@ -112,7 +112,7 @@ export default function Footer({ contacts }: { contacts?: ContactsContent }) {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/[0.06] text-center text-white/20 text-sm">
+        <div className="mt-12 pt-8 border-t border-border text-center text-text-muted text-sm">
           &copy; {new Date().getFullYear()} ZR AUTO. Все права защищены.
         </div>
       </div>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const BOTTOM_NAV = [
   {
@@ -45,58 +46,68 @@ const DESKTOP_LINKS = [
 
 export default function Header() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <>
-      {/* Desktop header */}
-      <header className="fixed top-0 left-0 right-0 z-50 hidden lg:block">
-        <div className="bg-dark/80 backdrop-blur-xl border-b border-white/[0.06]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <Link href="/" className="flex items-center gap-3 group">
-                <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-7 w-auto brightness-0 invert" priority />
-                <div className="text-white font-bold text-sm tracking-wider">ZR AUTO</div>
-              </Link>
+      {/* Desktop header — glass on scroll */}
+      <header className={`fixed top-0 left-0 right-0 z-50 hidden lg:block transition-all duration-300 ${
+        scrolled
+          ? "bg-white/90 backdrop-blur-xl shadow-sm shadow-black/[0.04] border-b border-border/50"
+          : "bg-transparent"
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="flex items-center gap-3 group">
+              <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-7 w-auto" priority />
+              <div className="text-text font-bold text-sm tracking-wider">ZR AUTO</div>
+            </Link>
 
-              <nav className="flex items-center gap-1">
-                {DESKTOP_LINKS.map((link) => {
-                  const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={`px-3.5 py-1.5 text-sm rounded-lg transition-all duration-200 ${
-                        isActive
-                          ? "text-white bg-white/10"
-                          : "text-white/50 hover:text-white hover:bg-white/[0.06]"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
-              </nav>
+            <nav className="flex items-center gap-1">
+              {DESKTOP_LINKS.map((link) => {
+                const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-3.5 py-1.5 text-sm rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? "text-primary bg-primary/[0.06] font-medium"
+                        : "text-text-secondary hover:text-text hover:bg-surface-alt"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
 
-              <div className="flex items-center gap-3">
-                <a href="tel:+79884444485" className="text-sm text-white/40 hover:text-white transition-colors">
-                  +7 988 444-44-85
-                </a>
-                <a
-                  href="https://wa.me/79884444485"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-primary hover:bg-primary-light text-white text-sm font-bold px-5 py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
-                >
-                  Записаться
-                </a>
-              </div>
+            <div className="flex items-center gap-3">
+              <a href="tel:+79884444485" className="text-sm text-text-muted hover:text-primary transition-colors">
+                +7 988 444-44-85
+              </a>
+              <a
+                href="https://wa.me/79884444485"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary hover:bg-primary-light text-white text-sm font-bold px-5 py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+              >
+                Записаться
+              </a>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile bottom nav only — no top header */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-dark/95 backdrop-blur-xl border-t border-white/[0.06]">
+      {/* Mobile bottom nav */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-white/95 backdrop-blur-xl border-t border-border">
         <div className="flex items-center justify-around h-14 max-w-lg mx-auto px-1">
           {BOTTOM_NAV.map((link) => {
             const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -107,7 +118,7 @@ export default function Header() {
                   key={link.label}
                   href={link.href}
                   {...(link.isNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex flex-col items-center gap-0.5 px-2 py-1 text-white/30 active:text-primary transition-colors min-w-0"
+                  className="flex flex-col items-center gap-0.5 px-2 py-1 text-text-muted active:text-primary transition-colors min-w-0"
                 >
                   {link.icon}
                   <span className="text-[10px] font-medium truncate">{link.label}</span>
@@ -120,7 +131,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={`flex flex-col items-center gap-0.5 px-2 py-1 transition-colors duration-200 min-w-0 ${
-                  isActive ? "text-primary" : "text-white/30"
+                  isActive ? "text-primary" : "text-text-muted"
                 }`}
               >
                 {link.icon}

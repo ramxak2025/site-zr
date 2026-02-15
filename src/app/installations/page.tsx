@@ -27,20 +27,19 @@ export default async function InstallationsPage({
 
   return (
     <div className="inner-page">
-      {/* Dark banner */}
       <div className="page-banner pt-28 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
-            <span className="sep text-white/20">/</span>
-            <span className="text-white/40">
+            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
+            <span className="sep text-border">/</span>
+            <span className="text-text-muted">
               {activeBrand ? `Установка ГБО ${activeBrand.name}` : "Примеры установок"}
             </span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl font-black text-text mb-4">
             {activeBrand ? `Установка ГБО на ${activeBrand.name}` : "Примеры установок ГБО"}
           </h1>
-          <p className="text-white/60 text-lg max-w-2xl">
+          <p className="text-text-secondary text-lg max-w-2xl">
             {activeBrand
               ? `Примеры установки газобаллонного оборудования на автомобили ${activeBrand.name} в ZR AUTO`
               : "Наши работы по установке газобаллонного оборудования на различные марки автомобилей"}
