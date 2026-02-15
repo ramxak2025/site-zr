@@ -86,6 +86,14 @@ export interface AboutContent {
   steps: AboutStep[];
 }
 
+export interface BackgroundSettings {
+  enabled: boolean;
+  smokeIntensity: number;   // 0-100
+  accentMix: number;        // 0-100 (how much brand color in smoke)
+  speed: number;            // 0-100
+  particleDensity: number;  // 0-100
+}
+
 export interface SiteContent {
   hero: HeroContent;
   services: ServiceItem[];
@@ -93,6 +101,7 @@ export interface SiteContent {
   reviewPlatforms: ReviewPlatform[];
   contacts: ContactsContent;
   about: AboutContent;
+  background: BackgroundSettings;
 }
 
 export const DEFAULT_CONTENT: SiteContent = {
@@ -196,5 +205,12 @@ export const DEFAULT_CONTENT: SiteContent = {
       { title: "Настройка", description: "Компьютерная калибровка системы под ваш двигатель для максимальной эффективности" },
       { title: "Гарантия", description: "2 года гарантии на оборудование и работу. Бесплатное гарантийное обслуживание" },
     ],
+  },
+  background: {
+    enabled: true,
+    smokeIntensity: 70,
+    accentMix: 15,
+    speed: 50,
+    particleDensity: 60,
   },
 };

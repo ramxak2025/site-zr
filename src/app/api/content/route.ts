@@ -16,7 +16,7 @@ export async function PUT(request: NextRequest) {
   }
 
   const valid: (keyof SiteContent)[] = [
-    "hero", "services", "reviews", "reviewPlatforms", "contacts", "about",
+    "hero", "services", "reviews", "reviewPlatforms", "contacts", "about", "background",
   ];
 
   if (!valid.includes(section)) {

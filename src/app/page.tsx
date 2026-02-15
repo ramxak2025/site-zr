@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
     <>
-      <Hero content={content.hero} />
+      <Hero content={content.hero} bgSettings={content.background} />
       <Marquee />
       <Services items={content.services} />
       <Advantages />
@@ -64,7 +64,7 @@ export default async function Home() {
 
       <Reviews items={content.reviews} platforms={content.reviewPlatforms} />
       <PopularCars />
-      <CTA contacts={content.contacts} />
+      <CTA contacts={content.contacts} bgSettings={content.background} />
     </>
   );
 }

@@ -3,6 +3,38 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useTheme } from "./ThemeProvider";
+
+const SunIcon = () => (
+  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+);
+
+function ThemeToggle({ mobile = false }: { mobile?: boolean }) {
+  const { resolved, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      aria-label={resolved === "dark" ? "Включить светлую тему" : "Включить тёмную тему"}
+      className={`flex items-center justify-center rounded-lg transition-all duration-300 ${
+        mobile
+          ? "w-8 h-8 text-white/50 hover:text-white hover:bg-white/10"
+          : "w-9 h-9 border border-white/10 text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.06]"
+      }`}
+    >
+      <div className="theme-toggle-icon">
+        {resolved === "dark" ? <SunIcon /> : <MoonIcon />}
+      </div>
+    </button>
+  );
+}
 
 const BOTTOM_NAV = [
   {
@@ -77,7 +109,8 @@ export default function Header() {
                 })}
               </nav>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
                 <a href="tel:+79884444485" className="text-sm text-white/40 hover:text-white transition-colors">
                   +7 988 444-44-85
                 </a>
@@ -98,24 +131,27 @@ export default function Header() {
       {/* Mobile top bar — dark */}
       <header className="fixed top-0 left-0 right-0 z-50 lg:hidden bg-dark/90 backdrop-blur-xl border-b border-white/[0.06]">
         <div className="flex items-center justify-between h-14 px-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/images/logo.png" alt="ZR AUTO" width={32} height={24} className="h-6 w-auto brightness-0 invert" priority />
+          <Link href="/" className="flex items-center gap-2 min-w-0">
+            <Image src="/images/logo.png" alt="ZR AUTO" width={32} height={24} className="h-6 w-auto brightness-0 invert shrink-0" priority />
             <span className="text-white font-bold text-sm tracking-wider">ZR AUTO</span>
           </Link>
-          <a
-            href="https://wa.me/79884444485"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg"
-          >
-            Записаться
-          </a>
+          <div className="flex items-center gap-2 shrink-0">
+            <ThemeToggle mobile />
+            <a
+              href="https://wa.me/79884444485"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg"
+            >
+              Записаться
+            </a>
+          </div>
         </div>
       </header>
 
       {/* Mobile bottom nav — dark */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-dark/95 backdrop-blur-xl border-t border-white/[0.06]">
-        <div className="flex items-center justify-around h-14 max-w-lg mx-auto">
+        <div className="flex items-center justify-around h-14 max-w-lg mx-auto px-1">
           {BOTTOM_NAV.map((link) => {
             const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
 
@@ -125,10 +161,10 @@ export default function Header() {
                   key={link.label}
                   href={link.href}
                   {...(link.isNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex flex-col items-center gap-0.5 px-3 py-1 text-white/30 active:text-primary transition-colors"
+                  className="flex flex-col items-center gap-0.5 px-2 py-1 text-white/30 active:text-primary transition-colors min-w-0"
                 >
                   {link.icon}
-                  <span className="text-[10px] font-medium">{link.label}</span>
+                  <span className="text-[10px] font-medium truncate">{link.label}</span>
                 </a>
               );
             }
@@ -137,12 +173,12 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center gap-0.5 px-3 py-1 transition-colors duration-200 ${
+                className={`flex flex-col items-center gap-0.5 px-2 py-1 transition-colors duration-200 min-w-0 ${
                   isActive ? "text-primary" : "text-white/30"
                 }`}
               >
                 {link.icon}
-                <span className="text-[10px] font-medium">{link.label}</span>
+                <span className="text-[10px] font-medium truncate">{link.label}</span>
               </Link>
             );
           })}

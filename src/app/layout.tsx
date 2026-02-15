@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { getSiteContent } from "@/lib/content-storage";
 
 export const metadata: Metadata = {
@@ -36,22 +37,36 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://zrauto.ru" },
 };
 
+/* Inline script to set theme class before React hydration (prevents flash) */
+const THEME_INIT_SCRIPT = `
+(function(){
+  try {
+    var t = localStorage.getItem('zr-theme');
+    var dark = t === 'dark' || (!t || t === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (dark) document.documentElement.classList.add('dark');
+  } catch(e){}
+})();
+`;
+
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const content = await getSiteContent();
 
   return (
-    <html lang="ru">
+    <html lang="ru" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#09090b" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="bg-dark text-text antialiased font-sans pb-16 lg:pb-0">
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer contacts={content.contacts} />
+        <ThemeProvider>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer contacts={content.contacts} />
+        </ThemeProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

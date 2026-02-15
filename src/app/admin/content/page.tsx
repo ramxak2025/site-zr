@@ -3,11 +3,11 @@
 import { useState, useEffect, useCallback } from "react";
 import type {
   SiteContent, HeroContent, ServiceItem, ReviewItem,
-  ReviewPlatform, ContactsContent, AboutContent,
+  ReviewPlatform, ContactsContent, AboutContent, BackgroundSettings,
 } from "@/lib/content";
 
 /* ── Helpers ────────────────────────────────────────── */
-type Tab = "hero" | "services" | "reviews" | "contacts" | "about";
+type Tab = "hero" | "services" | "reviews" | "contacts" | "about" | "background";
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: "hero", label: "Главная", icon: "home" },
@@ -15,6 +15,7 @@ const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: "reviews", label: "Отзывы", icon: "star" },
   { id: "contacts", label: "Контакты", icon: "phone" },
   { id: "about", label: "О компании", icon: "info" },
+  { id: "background", label: "Фон", icon: "bg" },
 ];
 
 function SaveBtn({ saving, onClick }: { saving: boolean; onClick: () => void }) {
@@ -148,6 +149,7 @@ export default function ContentEditor() {
       {tab === "reviews" && <ReviewsEditor reviews={content.reviews} platforms={content.reviewPlatforms} onSaveReviews={(d) => { setContent({ ...content, reviews: d }); save("reviews", d); }} onSavePlatforms={(d) => { setContent({ ...content, reviewPlatforms: d }); save("reviewPlatforms", d); }} saving={saving} />}
       {tab === "contacts" && <ContactsEditor contacts={content.contacts} onSave={(d) => { setContent({ ...content, contacts: d }); save("contacts", d); }} saving={saving} />}
       {tab === "about" && <AboutEditor about={content.about} onSave={(d) => { setContent({ ...content, about: d }); save("about", d); }} saving={saving} />}
+      {tab === "background" && <BackgroundEditor bg={content.background} onSave={(d) => { setContent({ ...content, background: d }); save("background", d); }} saving={saving} />}
 
       {/* Toast */}
       {toast && (
@@ -694,6 +696,79 @@ function AboutEditor({ about, onSave, saving }: { about: AboutContent; onSave: (
           <button onClick={() => upd({ steps: [...data.steps, { title: "", description: "" }] })} className="text-primary text-sm hover:underline">
             + Добавить этап
           </button>
+        </div>
+      </SectionCard>
+
+      <div className="flex justify-end">
+        <SaveBtn saving={saving} onClick={() => onSave(data)} />
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════
+   BACKGROUND EDITOR
+   ══════════════════════════════════════════════════════ */
+function RangeSlider({ label, value, onChange, suffix = "%" }: { label: string; value: number; onChange: (v: number) => void; suffix?: string }) {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-2">
+        <Label text={label} />
+        <span className="text-white font-semibold text-sm">{value}{suffix}</span>
+      </div>
+      <input
+        type="range"
+        min={0} max={100}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full"
+      />
+    </div>
+  );
+}
+
+function BackgroundEditor({ bg, onSave, saving }: { bg: BackgroundSettings; onSave: (d: BackgroundSettings) => void; saving: boolean }) {
+  const [data, setData] = useState(bg);
+  const upd = (patch: Partial<BackgroundSettings>) => setData((p) => ({ ...p, ...patch }));
+
+  return (
+    <div className="space-y-6">
+      <SectionCard title="Анимированный фон (газ / дым / пар)">
+        <div className="space-y-6">
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={data.enabled}
+              onChange={(e) => upd({ enabled: e.target.checked })}
+              className="w-5 h-5 rounded border-gray-600 text-primary focus:ring-primary"
+            />
+            <span className="text-white font-medium">Включить анимацию фона</span>
+          </label>
+
+          {data.enabled && (
+            <div className="space-y-5 mt-4">
+              <RangeSlider
+                label="Интенсивность дыма"
+                value={data.smokeIntensity}
+                onChange={(v) => upd({ smokeIntensity: v })}
+              />
+              <RangeSlider
+                label="Доля цветного акцента (красный/оранжевый)"
+                value={data.accentMix}
+                onChange={(v) => upd({ accentMix: v })}
+              />
+              <RangeSlider
+                label="Скорость анимации"
+                value={data.speed}
+                onChange={(v) => upd({ speed: v })}
+              />
+              <RangeSlider
+                label="Плотность частиц"
+                value={data.particleDensity}
+                onChange={(v) => upd({ particleDensity: v })}
+              />
+            </div>
+          )}
         </div>
       </SectionCard>
 
