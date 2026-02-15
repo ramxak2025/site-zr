@@ -22,7 +22,7 @@ export default function Hero({ content, bgSettings }: { content?: HeroContent; b
       )}
 
       <div className="relative z-10 flex-1 flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-8 md:pt-36">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 pb-8 md:pt-36">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             <div className="lg:col-span-7">
               <div className="opacity-0 anim-fade delay-1">
