@@ -21,7 +21,7 @@ function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} className={`w-3.5 h-3.5 ${i < count ? "text-amber-400" : "text-gray-200"}`} fill="currentColor" viewBox="0 0 20 20">
+        <svg key={i} className={`w-3.5 h-3.5 ${i < count ? "text-amber-400" : "text-zinc-300"}`} fill="currentColor" viewBox="0 0 20 20">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ))}
@@ -36,7 +36,7 @@ export default function Reviews() {
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
           <ScrollReveal animation="fade-left">
             <span className="section-label">Отзывы</span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.92] tracking-tight">
               Нам <span className="text-text-muted">доверяют</span>
             </h2>
           </ScrollReveal>
@@ -48,10 +48,10 @@ export default function Reviews() {
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="card-light px-5 py-3 group"
+                  className="card px-5 py-3 group"
                 >
                   <div className="text-text-secondary text-xs font-medium group-hover:text-text transition-colors">{p.name}</div>
-                  <div className="flex items-center gap-1 mt-0.5">
+                  <div className="flex items-center gap-1.5 mt-1">
                     <svg className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                     <span className="text-text font-bold text-sm text-display">{p.rating}</span>
                   </div>
@@ -61,11 +61,11 @@ export default function Reviews() {
           </ScrollReveal>
         </div>
 
-        {/* Review cards with staggered scroll reveal */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Review cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {REVIEWS.map((review, i) => (
-            <ScrollReveal key={i} animation="flip" delay={i * 100}>
-              <div className="card-light card-tilt p-6 md:p-8 h-full flex flex-col">
+            <ScrollReveal key={i} animation="fade-up" delay={i * 80}>
+              <div className="card p-7 h-full flex flex-col">
                 <Stars count={review.rating} />
                 <p className="text-text-secondary text-sm leading-relaxed mt-4 mb-6 flex-1">&ldquo;{review.text}&rdquo;</p>
                 <div className="flex items-center justify-between border-t border-border pt-4">
@@ -73,7 +73,7 @@ export default function Reviews() {
                     <div className="text-text font-semibold text-sm">{review.name}</div>
                     <div className="text-text-muted text-xs">{review.car}</div>
                   </div>
-                  <span className="text-[10px] text-text-muted border border-border px-2 py-1 rounded-md font-medium tracking-wider uppercase">
+                  <span className="badge badge-light text-[10px] tracking-wider uppercase">
                     {review.platform}
                   </span>
                 </div>

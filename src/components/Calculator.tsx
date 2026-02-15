@@ -45,9 +45,9 @@ export default function Calculator({ compact = false }: CalculatorProps) {
     <section id="calculator" className={compact ? "" : "py-24 md:py-32 bg-surface"}>
       <div className={compact ? "" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
         {!compact && (
-          <div className="mb-16 animate-reveal">
+          <div className="mb-16">
             <span className="section-label">Калькулятор</span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.92] tracking-tight">
               Рассчитайте <span className="text-text-muted">экономию</span>
             </h2>
           </div>
@@ -55,23 +55,23 @@ export default function Calculator({ compact = false }: CalculatorProps) {
 
         <div className={`grid ${compact ? "gap-8" : "lg:grid-cols-2 gap-6"}`}>
           {/* Input panel */}
-          <div className="card-light p-6 md:p-8 animate-reveal delay-1">
+          <div className="card p-7 md:p-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-1.5 h-6 bg-primary rounded-full" />
+              <div className="w-1 h-6 rounded-full bg-gradient-to-b from-primary to-accent" />
               <h3 className="text-text font-bold">Параметры</h3>
             </div>
 
             {/* Fuel type */}
             <div className="mb-8">
               <label className="text-text-muted text-xs tracking-wider uppercase mb-3 block">Тип топлива</label>
-              <div className="flex gap-1">
+              <div className="flex gap-1.5">
                 {(["gasoline92", "gasoline95", "gasoline98"] as const).map((type) => (
                   <button
                     key={type}
                     onClick={() => setFuelType(type)}
-                    className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 ${
+                    className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 ${
                       fuelType === type
-                        ? "bg-primary text-white shadow-md"
+                        ? "bg-primary text-white shadow-md shadow-primary/20"
                         : "bg-surface-alt text-text-secondary hover:text-text border border-border"
                     }`}
                   >
@@ -111,9 +111,9 @@ export default function Calculator({ compact = false }: CalculatorProps) {
           </div>
 
           {/* Result panel */}
-          <div className="flex flex-col gap-4 animate-reveal delay-2">
+          <div className="flex flex-col gap-4">
             {/* Main saving */}
-            <div className="bg-primary/5 border border-primary/15 rounded-2xl p-8 flex-1 flex flex-col justify-center relative overflow-hidden">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-accent/5 to-transparent border border-primary/15 p-8 flex-1 flex flex-col justify-center">
               <div className="absolute top-2 right-4 text-[6rem] font-black text-primary/[0.06] text-display leading-none select-none">
                 {result.savingPercent}%
               </div>
@@ -136,7 +136,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
                 { label: "Бензин / мес", value: `${formatPrice(result.monthlyGasolineCost)} ₽`, accent: true },
                 { label: "Газ / мес", value: `${formatPrice(result.monthlyLpgCost)} ₽`, accent: false },
               ].map((stat) => (
-                <div key={stat.label} className="card-light p-5">
+                <div key={stat.label} className="card p-5">
                   <div className="text-text-muted text-xs tracking-wider uppercase mb-1">{stat.label}</div>
                   <div className={`font-bold text-xl text-display ${stat.accent ? "text-primary" : "text-text"}`}>
                     {stat.value}
@@ -146,7 +146,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
             </div>
 
             {/* CTA */}
-            <div className="card-light p-5 flex flex-col sm:flex-row items-center gap-4">
+            <div className="card p-5 flex flex-col sm:flex-row items-center gap-4">
               <div className="flex-1 text-center sm:text-left">
                 <div className="text-text font-semibold">Готовы экономить?</div>
                 <div className="text-text-muted text-sm">Бесплатная консультация</div>
@@ -155,7 +155,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
                 href="https://wa.me/79884444485"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 text-sm rounded-lg transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg"
+                className="bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 text-sm rounded-xl transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg"
               >
                 Записаться
               </a>

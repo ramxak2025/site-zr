@@ -40,12 +40,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ru">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#09090b" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-surface text-text antialiased font-sans pb-16 lg:pb-0">
+      <body className="bg-dark text-text antialiased font-sans pb-16 lg:pb-0">
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

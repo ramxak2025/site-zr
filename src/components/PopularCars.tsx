@@ -14,21 +14,21 @@ export default function PopularCars() {
   return (
     <section className="py-24 md:py-32 bg-surface-alt">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 animate-reveal">
+        <div className="mb-16">
           <span className="section-label">По маркам</span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.92] tracking-tight">
             Установка ГБО <span className="text-text-muted">на ваш авто</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-          {POPULAR_MODELS.map(({ brand, model }, i) => {
+          {POPULAR_MODELS.map(({ brand, model }) => {
             const slug = `ustanovka-gbo-${brand.toLowerCase()}-${model.toLowerCase().replace(/\s+/g, "-")}`;
             return (
               <Link
                 key={`${brand}-${model}`}
                 href={`/installations/${slug}`}
-                className={`card-light group p-5 flex items-center justify-between animate-reveal delay-${Math.min(i + 1, 8)}`}
+                className="card group p-5 flex items-center justify-between"
               >
                 <div>
                   <div className="text-text font-semibold group-hover:text-primary transition-colors duration-300">{brand} {model}</div>
@@ -43,9 +43,9 @@ export default function PopularCars() {
         </div>
 
         {/* All brands */}
-        <div className="card-light p-6 md:p-8 animate-reveal delay-4">
+        <div className="card p-7 md:p-8">
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-1.5 h-6 bg-primary rounded-full" />
+            <div className="w-1 h-6 rounded-full bg-gradient-to-b from-primary to-accent" />
             <h3 className="text-text font-bold">Все марки</h3>
           </div>
           <div className="flex flex-wrap gap-2">

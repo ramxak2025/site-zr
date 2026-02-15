@@ -31,8 +31,8 @@ export default async function Home() {
             <div className="grid lg:grid-cols-2 gap-6 mb-16">
               <div>
                 <span className="section-label">Работы</span>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
-                  Последние <span className="text-text/20">установки</span>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.92] tracking-tight">
+                  Последние <span className="text-text-muted">установки</span>
                 </h2>
               </div>
               <div className="flex items-end lg:justify-end">
@@ -48,7 +48,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {latestInstallations.map((inst) => (
                 <InstallationCard key={inst.id} installation={inst} />
               ))}

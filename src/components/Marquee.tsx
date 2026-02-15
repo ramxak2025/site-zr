@@ -1,13 +1,13 @@
 export default function Marquee() {
-  const text = "УСТАНОВКА ГБО \u00A0\u00A0\u2022\u00A0\u00A0 ЭКОНОМИЯ 50% \u00A0\u00A0\u2022\u00A0\u00A0 ГАРАНТИЯ 2 ГОДА \u00A0\u00A0\u2022\u00A0\u00A0 ОТ 23 000 \u20BD \u00A0\u00A0\u2022\u00A0\u00A0 УСТАНОВКА ЗА 1 ДЕНЬ \u00A0\u00A0\u2022\u00A0\u00A0 ИТАЛЬЯНСКОЕ ОБОРУДОВАНИЕ \u00A0\u00A0\u2022\u00A0\u00A0 ";
+  const text = "УСТАНОВКА ГБО  \u2022  ЭКОНОМИЯ 50%  \u2022  ГАРАНТИЯ 2 ГОДА  \u2022  ОТ 23 000 \u20BD  \u2022  УСТАНОВКА ЗА 1 ДЕНЬ  \u2022  ИТАЛЬЯНСКОЕ ОБОРУДОВАНИЕ  \u2022  ";
 
   return (
-    <div className="border-y border-primary/10 bg-primary/5 overflow-hidden py-3.5 select-none">
+    <div className="border-y border-white/[0.06] bg-dark overflow-hidden py-4 select-none">
       <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(6)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <span
             key={i}
-            className="text-xs font-bold text-primary/50 tracking-[0.2em] uppercase"
+            className="text-xs font-semibold text-white/20 tracking-[0.2em] uppercase"
           >
             {text}
           </span>

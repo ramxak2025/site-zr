@@ -5,27 +5,27 @@ export default function Brands() {
     <section className="py-24 md:py-32 bg-surface-alt">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
-          <div className="animate-reveal">
+          <div>
             <span className="section-label">Оборудование</span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.92] tracking-tight">
               Проверенные <span className="text-text-muted">бренды</span>
             </h2>
           </div>
-          <div className="flex items-end lg:justify-end animate-reveal delay-1">
-            <p className="text-text-secondary text-lg max-w-md">
+          <div className="flex items-end lg:justify-end">
+            <p className="text-text-secondary text-lg max-w-md leading-relaxed">
               Работаем с ведущими европейскими производителями ГБО — никаких &laquo;ноунеймов&raquo;
             </p>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {GBO_SYSTEMS.map((system, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {GBO_SYSTEMS.map((system) => (
             <div
               key={system.name}
-              className={`card-light group p-6 md:p-8 animate-reveal delay-${Math.min(i + 2, 8)}`}
+              className="card group p-7 md:p-8"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 border-2 border-primary/30 rounded-xl flex items-center justify-center text-primary font-black text-xl group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
+                <div className="w-12 h-12 border-2 border-primary/30 rounded-2xl flex items-center justify-center text-primary font-black text-xl group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
                   {system.name.charAt(0)}
                 </div>
                 <div>

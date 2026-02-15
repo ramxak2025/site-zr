@@ -9,7 +9,7 @@ export default function InstallationCard({ installation }: InstallationCardProps
   return (
     <Link
       href={`/installations/${installation.slug}`}
-      className="card-light group block overflow-hidden"
+      className="card group block overflow-hidden"
     >
       {installation.images && installation.images.length > 0 && (
         <div className="aspect-[4/3] overflow-hidden bg-surface-alt">
@@ -31,7 +31,7 @@ export default function InstallationCard({ installation }: InstallationCardProps
           )}
         </div>
         <div className="flex items-center gap-3 mb-3">
-          <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 rounded-md font-medium">
+          <span className="badge badge-red text-xs">
             {installation.gboSystem}
           </span>
           {installation.cylinderVolume && (
