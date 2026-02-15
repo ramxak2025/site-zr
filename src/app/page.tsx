@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import Services from "@/components/Services";
 import Advantages from "@/components/Advantages";
 import Calculator from "@/components/Calculator";
@@ -17,6 +18,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
+      <Marquee />
       <Services />
       <Advantages />
       <Calculator />
@@ -24,37 +26,32 @@ export default async function Home() {
 
       {/* Latest installations section */}
       {latestInstallations.length > 0 && (
-        <section className="py-20 md:py-28 bg-surface-light">
+        <section className="py-24 md:py-32 bg-surface">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-end justify-between mb-12">
+            <div className="grid lg:grid-cols-2 gap-6 mb-16">
               <div>
-                <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">Последние установки</h2>
-                <p className="text-gray-400 text-lg">Примеры наших работ по установке ГБО</p>
+                <span className="section-num">05 / РАБОТЫ</span>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-3 leading-[0.95]">
+                  Последние <span className="text-white/20">установки</span>
+                </h2>
               </div>
-              <Link
-                href="/installations"
-                className="hidden sm:flex items-center gap-1 text-primary hover:text-primary-light font-medium transition-colors"
-              >
-                Все работы
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </Link>
+              <div className="flex items-end lg:justify-end">
+                <Link
+                  href="/installations"
+                  className="group flex items-center gap-2 text-white/30 hover:text-primary font-medium transition-colors duration-300"
+                >
+                  Все работы
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {latestInstallations.map((inst) => (
                 <InstallationCard key={inst.id} installation={inst} />
               ))}
-            </div>
-
-            <div className="mt-8 text-center sm:hidden">
-              <Link
-                href="/installations"
-                className="inline-flex items-center gap-1 text-primary font-medium"
-              >
-                Все работы &rarr;
-              </Link>
             </div>
           </div>
         </section>

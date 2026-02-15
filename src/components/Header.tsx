@@ -8,23 +8,23 @@ const BOTTOM_NAV = [
   {
     href: "/",
     label: "Главная",
-    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>,
+    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>,
   },
   {
     href: "/calculator",
     label: "Калькулятор",
-    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z" /></svg>,
+    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z" /></svg>,
   },
   {
     href: "/installations",
     label: "Работы",
-    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>,
+    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>,
   },
   {
     href: "tel:+79884444485",
     label: "Звонок",
     isExternal: true,
-    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>,
+    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>,
   },
   {
     href: "https://wa.me/79884444485",
@@ -49,97 +49,95 @@ export default function Header() {
 
   return (
     <>
-      {/* Desktop top header — glass style */}
-      <header className="fixed top-0 left-0 right-0 z-50 hidden lg:block">
-        <div className="mx-4 mt-3">
-          <div className="max-w-7xl mx-auto glass-strong rounded-2xl px-6">
-            <div className="flex items-center justify-between h-16">
-              <Link href="/" className="flex items-center gap-3 group">
-                <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-7 w-auto transition-transform group-hover:scale-110" priority />
-                <div className="text-white font-bold text-sm leading-tight">ZR AUTO</div>
-              </Link>
+      {/* Desktop header — clean minimal */}
+      <header className="fixed top-0 left-0 right-0 z-50 hidden lg:block bg-surface/90 backdrop-blur-sm border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="flex items-center gap-3 group">
+              <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-7 w-auto" priority />
+              <div className="text-white font-bold text-sm tracking-wider">ZR AUTO</div>
+            </Link>
 
-              <nav className="flex items-center gap-0.5">
-                {DESKTOP_LINKS.map((link) => (
-                  <Link key={link.href} href={link.href} className="px-3.5 py-1.5 text-sm text-white/50 hover:text-white rounded-xl hover:bg-white/5 transition-all duration-200">
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-
-              <div className="flex items-center gap-3">
-                <a href="tel:+79884444485" className="text-sm text-white/50 hover:text-white transition-colors">
-                  +7 988 444-44-85
-                </a>
-                <a
-                  href="https://wa.me/79884444485"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-light hover:to-primary text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+            <nav className="flex items-center gap-1">
+              {DESKTOP_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="px-3 py-1.5 text-sm text-white/30 hover:text-white transition-colors duration-200"
                 >
-                  Записаться
-                </a>
-              </div>
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-4">
+              <a href="tel:+79884444485" className="text-sm text-white/30 hover:text-white transition-colors">
+                +7 988 444-44-85
+              </a>
+              <a
+                href="https://wa.me/79884444485"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary hover:bg-primary-light text-white text-sm font-bold px-5 py-2 transition-all duration-300"
+              >
+                Записаться
+              </a>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile top bar — glass */}
-      <header className="fixed top-0 left-0 right-0 z-50 lg:hidden">
-        <div className="glass-strong">
-          <div className="flex items-center justify-between h-14 px-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Image src="/images/logo.png" alt="ZR AUTO" width={32} height={24} className="h-6 w-auto" priority />
-              <span className="text-white font-bold text-sm">ZR AUTO</span>
-            </Link>
-            <a
-              href="https://wa.me/79884444485"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gradient-to-r from-primary to-primary-dark text-white text-xs font-semibold px-4 py-2 rounded-xl"
-            >
-              Записаться
-            </a>
-          </div>
+      {/* Mobile top bar */}
+      <header className="fixed top-0 left-0 right-0 z-50 lg:hidden bg-surface/95 backdrop-blur-sm border-b border-white/5">
+        <div className="flex items-center justify-between h-14 px-4">
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/images/logo.png" alt="ZR AUTO" width={32} height={24} className="h-6 w-auto" priority />
+            <span className="text-white font-bold text-sm tracking-wider">ZR AUTO</span>
+          </Link>
+          <a
+            href="https://wa.me/79884444485"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-primary text-white text-xs font-bold px-4 py-2"
+          >
+            Записаться
+          </a>
         </div>
       </header>
 
-      {/* Mobile bottom nav — glass */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe">
-        <div className="glass-strong mx-3 mb-2 rounded-2xl">
-          <div className="flex items-center justify-around h-14 max-w-lg mx-auto">
-            {BOTTOM_NAV.map((link) => {
-              const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+      {/* Mobile bottom nav */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-surface border-t border-white/5">
+        <div className="flex items-center justify-around h-14 max-w-lg mx-auto">
+          {BOTTOM_NAV.map((link) => {
+            const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
 
-              if (link.isExternal) {
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    {...(link.isNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="flex flex-col items-center gap-0.5 px-3 py-1 text-white/30 active:text-primary transition-colors"
-                  >
-                    {link.icon}
-                    <span className="text-[10px] font-medium">{link.label}</span>
-                  </a>
-                );
-              }
-
+            if (link.isExternal) {
               return (
-                <Link
-                  key={link.href}
+                <a
+                  key={link.label}
                   href={link.href}
-                  className={`flex flex-col items-center gap-0.5 px-3 py-1 transition-all duration-200 ${
-                    isActive ? "text-primary" : "text-white/30"
-                  }`}
+                  {...(link.isNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="flex flex-col items-center gap-0.5 px-3 py-1 text-white/20 active:text-primary transition-colors"
                 >
                   {link.icon}
                   <span className="text-[10px] font-medium">{link.label}</span>
-                </Link>
+                </a>
               );
-            })}
-          </div>
+            }
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex flex-col items-center gap-0.5 px-3 py-1 transition-colors duration-200 ${
+                  isActive ? "text-primary" : "text-white/20"
+                }`}
+              >
+                {link.icon}
+                <span className="text-[10px] font-medium">{link.label}</span>
+              </Link>
+            );
+          })}
         </div>
       </nav>
     </>

@@ -17,7 +17,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
   const result = useMemo(() => {
     const gasolinePrice = FUEL_PRICES[fuelType];
     const lpgPrice = FUEL_PRICES.lpg;
-    const lpgConsumption = consumption * 1.15; // gas consumption ~15% higher
+    const lpgConsumption = consumption * 1.15;
 
     const monthlyGasolineCost = (mileage / 100) * consumption * gasolinePrice;
     const monthlyLpgCost = (mileage / 100) * lpgConsumption * lpgPrice;
@@ -42,174 +42,129 @@ export default function Calculator({ compact = false }: CalculatorProps) {
   };
 
   return (
-    <section id="calculator" className={`${compact ? "" : "relative py-24 md:py-32 overflow-hidden"}`}>
-      {!compact && (
-        <>
-          <div className="absolute inset-0 bg-gradient-to-b from-surface-light to-surface" />
-          <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/3 rounded-full blur-[150px]" />
-        </>
-      )}
-
-      <div className={compact ? "" : "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
+    <section id="calculator" className={compact ? "" : "py-24 md:py-32 bg-surface"}>
+      <div className={compact ? "" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
         {!compact && (
-          <div className="text-center mb-16">
-            <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-3">Калькулятор</span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">Рассчитайте свою экономию</h2>
-            <p className="text-white/40 text-lg max-w-2xl mx-auto">
-              Узнайте, сколько вы сэкономите после установки ГБО на ваш автомобиль
-            </p>
+          <div className="mb-16">
+            <span className="section-num">03 / КАЛЬКУЛЯТОР</span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-3 leading-[0.95]">
+              Рассчитайте <span className="text-white/20">экономию</span>
+            </h2>
           </div>
         )}
 
-        <div className={`grid ${compact ? "gap-8" : "lg:grid-cols-2 gap-8 lg:gap-12"}`}>
+        <div className={`grid ${compact ? "gap-8" : "lg:grid-cols-2 gap-2"}`}>
           {/* Input panel */}
-          <div className="glass rounded-3xl p-6 md:p-8">
-            <h3 className="text-white font-bold text-lg mb-6">Параметры</h3>
+          <div className="bg-surface-light border border-white/5 p-6 md:p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1.5 h-6 bg-primary" />
+              <h3 className="text-white font-bold">Параметры</h3>
+            </div>
 
             {/* Fuel type */}
-            <div className="mb-6">
-              <label className="text-white/40 text-sm mb-2 block">Тип топлива</label>
-              <div className="flex gap-2">
+            <div className="mb-8">
+              <label className="text-white/20 text-xs tracking-wider uppercase mb-3 block">Тип топлива</label>
+              <div className="flex gap-1">
                 {(["gasoline92", "gasoline95", "gasoline98"] as const).map((type) => (
                   <button
                     key={type}
                     onClick={() => setFuelType(type)}
-                    className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    className={`flex-1 py-2.5 text-sm font-bold transition-all duration-300 ${
                       fuelType === type
-                        ? "glass-red text-primary"
-                        : "glass text-white/40 hover:text-white/60"
+                        ? "bg-primary text-white"
+                        : "bg-white/[0.03] text-white/30 hover:text-white/50 border border-white/5"
                     }`}
                   >
                     {fuelLabels[type]}
                   </button>
                 ))}
               </div>
-              <div className="text-right text-xs text-white/25 mt-1">
+              <div className="text-right text-xs text-white/15 mt-2">
                 {FUEL_PRICES[fuelType]} ₽/л • Газ {FUEL_PRICES.lpg} ₽/л
               </div>
             </div>
 
-            {/* Consumption */}
-            <div className="mb-6">
-              <div className="flex justify-between mb-2">
-                <label className="text-white/40 text-sm">Расход топлива</label>
-                <span className="text-white font-medium text-sm">{consumption} л/100 км</span>
+            {/* Sliders */}
+            {[
+              { label: "Расход топлива", value: consumption, unit: "л/100 км", min: 5, max: 25, step: 0.5, onChange: (v: number) => setConsumption(v) },
+              { label: "Пробег в месяц", value: mileage, unit: "км", min: 500, max: 5000, step: 100, onChange: (v: number) => setMileage(v), format: true },
+              { label: "Стоимость установки", value: installCost, unit: "₽", min: 20000, max: 60000, step: 1000, onChange: (v: number) => setInstallCost(v), format: true },
+            ].map((slider) => (
+              <div key={slider.label} className="mb-8">
+                <div className="flex justify-between mb-3">
+                  <label className="text-white/20 text-xs tracking-wider uppercase">{slider.label}</label>
+                  <span className="text-white font-bold text-sm text-display">
+                    {slider.format ? formatPrice(slider.value) : slider.value} {slider.unit}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min={slider.min}
+                  max={slider.max}
+                  step={slider.step}
+                  value={slider.value}
+                  onChange={(e) => slider.onChange(parseFloat(e.target.value))}
+                  className="w-full"
+                />
               </div>
-              <input
-                type="range"
-                min="5"
-                max="25"
-                step="0.5"
-                value={consumption}
-                onChange={(e) => setConsumption(parseFloat(e.target.value))}
-                className="w-full accent-primary"
-              />
-              <div className="flex justify-between text-xs text-white/25 mt-1">
-                <span>5 л</span>
-                <span>25 л</span>
-              </div>
-            </div>
-
-            {/* Monthly mileage */}
-            <div className="mb-6">
-              <div className="flex justify-between mb-2">
-                <label className="text-white/40 text-sm">Пробег в месяц</label>
-                <span className="text-white font-medium text-sm">{formatPrice(mileage)} км</span>
-              </div>
-              <input
-                type="range"
-                min="500"
-                max="5000"
-                step="100"
-                value={mileage}
-                onChange={(e) => setMileage(parseInt(e.target.value))}
-                className="w-full accent-primary"
-              />
-              <div className="flex justify-between text-xs text-white/25 mt-1">
-                <span>500 км</span>
-                <span>5 000 км</span>
-              </div>
-            </div>
-
-            {/* Install cost */}
-            <div>
-              <div className="flex justify-between mb-2">
-                <label className="text-white/40 text-sm">Стоимость установки</label>
-                <span className="text-white font-medium text-sm">{formatPrice(installCost)} ₽</span>
-              </div>
-              <input
-                type="range"
-                min="20000"
-                max="60000"
-                step="1000"
-                value={installCost}
-                onChange={(e) => setInstallCost(parseInt(e.target.value))}
-                className="w-full accent-primary"
-              />
-              <div className="flex justify-between text-xs text-white/25 mt-1">
-                <span>20 000 ₽</span>
-                <span>60 000 ₽</span>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Result panel */}
-          <div className="space-y-4">
-            {/* Main saving card */}
-            <div className="glass-red rounded-3xl p-6 md:p-8 glow-red">
-              <div className="text-white/50 text-sm mb-1">Ваша экономия в месяц</div>
-              <div className="text-4xl sm:text-5xl font-black text-white mb-2">
-                {formatPrice(result.monthlySaving)} ₽
+          <div className="flex flex-col gap-2">
+            {/* Main saving */}
+            <div className="bg-primary/[0.06] border border-primary/15 p-8 flex-1 flex flex-col justify-center relative overflow-hidden">
+              <div className="absolute top-2 right-4 text-[6rem] font-black text-primary/[0.06] text-display leading-none select-none">
+                {result.savingPercent}%
               </div>
-              <div className="text-primary font-medium">
-                {result.savingPercent}% экономии на топливе
+              <div className="relative">
+                <div className="text-white/30 text-xs tracking-wider uppercase mb-2">Экономия в месяц</div>
+                <div className="text-5xl sm:text-6xl font-black text-white text-display mb-2">
+                  {formatPrice(result.monthlySaving)} ₽
+                </div>
+                <div className="text-primary font-bold text-sm">
+                  {result.savingPercent}% экономии на топливе
+                </div>
               </div>
             </div>
 
             {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="glass rounded-2xl p-4">
-                <div className="text-white/30 text-xs mb-1">Экономия в год</div>
-                <div className="text-white font-bold text-xl">{formatPrice(result.yearlySaving)} ₽</div>
-              </div>
-              <div className="glass rounded-2xl p-4">
-                <div className="text-white/30 text-xs mb-1">Окупаемость</div>
-                <div className="text-white font-bold text-xl">
-                  {result.paybackMonths} мес
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { label: "Экономия в год", value: `${formatPrice(result.yearlySaving)} ₽`, accent: false },
+                { label: "Окупаемость", value: `${result.paybackMonths} мес`, accent: false },
+                { label: "Бензин / мес", value: `${formatPrice(result.monthlyGasolineCost)} ₽`, accent: true },
+                { label: "Газ / мес", value: `${formatPrice(result.monthlyLpgCost)} ₽`, accent: false },
+              ].map((stat) => (
+                <div key={stat.label} className="bg-surface-light border border-white/5 p-5">
+                  <div className="text-white/20 text-xs tracking-wider uppercase mb-1">{stat.label}</div>
+                  <div className={`font-bold text-xl text-display ${stat.accent ? "text-red-400" : "text-white"}`}>
+                    {stat.value}
+                  </div>
                 </div>
-              </div>
-              <div className="glass rounded-2xl p-4">
-                <div className="text-white/30 text-xs mb-1">Бензин в месяц</div>
-                <div className="text-red-400 font-bold text-xl">{formatPrice(result.monthlyGasolineCost)} ₽</div>
-              </div>
-              <div className="glass rounded-2xl p-4">
-                <div className="text-white/30 text-xs mb-1">Газ в месяц</div>
-                <div className="text-primary font-bold text-xl">{formatPrice(result.monthlyLpgCost)} ₽</div>
-              </div>
+              ))}
             </div>
 
             {/* CTA */}
-            <div className="glass-strong rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4">
+            <div className="bg-surface-light border border-white/5 p-5 flex flex-col sm:flex-row items-center gap-4">
               <div className="flex-1 text-center sm:text-left">
                 <div className="text-white font-semibold">Готовы экономить?</div>
-                <div className="text-white/40 text-sm">Запишитесь на бесплатную консультацию</div>
+                <div className="text-white/20 text-sm">Бесплатная консультация</div>
               </div>
               <a
                 href="https://wa.me/79884444485"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-light hover:to-primary text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-300 whitespace-nowrap hover:shadow-lg hover:shadow-primary/25"
+                className="bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 text-sm transition-all duration-300 whitespace-nowrap"
               >
                 Записаться
               </a>
             </div>
 
             {!compact && (
-              <div className="text-center">
-                <Link href="/installations" className="text-primary hover:text-primary-light text-sm font-medium transition-colors duration-300">
-                  Смотреть примеры установок &rarr;
-                </Link>
-              </div>
+              <Link href="/installations" className="text-center text-primary hover:text-primary-light text-sm font-medium transition-colors duration-300 py-2">
+                Смотреть примеры установок &rarr;
+              </Link>
             )}
           </div>
         </div>
