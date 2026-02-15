@@ -31,7 +31,7 @@ export default async function Home() {
       <Brands />
 
       {latestInstallations.length > 0 && (
-        <section className="py-24 md:py-32 bg-surface">
+        <section className="py-24 md:py-32 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-6 mb-16">
               <div>
@@ -53,7 +53,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {latestInstallations.map((inst) => (
                 <InstallationCard key={inst.id} installation={inst} />
               ))}

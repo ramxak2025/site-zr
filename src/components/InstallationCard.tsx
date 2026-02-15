@@ -21,9 +21,9 @@ export default function InstallationCard({ installation }: InstallationCardProps
           />
         </div>
       )}
-      <div className="p-5">
+      <div className="p-6">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-text font-bold group-hover:text-primary transition-colors duration-300">
+          <h3 className="text-text font-bold text-lg group-hover:text-primary transition-colors duration-300">
             {installation.carBrand} {installation.carModel}
           </h3>
           {installation.year && (
@@ -39,7 +39,7 @@ export default function InstallationCard({ installation }: InstallationCardProps
           )}
         </div>
         {installation.price && (
-          <div className="text-text font-bold text-display">{formatPrice(installation.price)} ₽</div>
+          <div className="text-text font-bold text-lg text-display">{formatPrice(installation.price)} ₽</div>
         )}
       </div>
     </Link>

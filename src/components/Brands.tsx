@@ -2,7 +2,7 @@ import { GBO_SYSTEMS } from "@/lib/data";
 
 export default function Brands() {
   return (
-    <section className="py-24 md:py-32 bg-surface-alt">
+    <section className="py-24 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
           <div>
@@ -25,7 +25,7 @@ export default function Brands() {
               className="card group p-7 md:p-8"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 border-2 border-primary/30 rounded-2xl flex items-center justify-center text-primary font-black text-xl group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-dark flex items-center justify-center text-white font-black text-xl">
                   {system.name.charAt(0)}
                 </div>
                 <div>

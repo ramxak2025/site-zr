@@ -20,12 +20,12 @@ export default async function ContactsPage() {
       <section className="page-banner">
         <div className="relative pt-28 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="hover:text-primary transition-colors text-text-secondary">Главная</Link>
-            <span className="sep">/</span>
-            <span className="current text-text-muted">Контакты</span>
+            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
+            <span className="sep text-white/20">/</span>
+            <span className="current text-white/40">Контакты</span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-text">Контакты</h1>
-          <p className="mt-4 text-lg text-text-secondary max-w-2xl">Приезжайте, звоните или пишите — мы всегда на связи</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white">Контакты</h1>
+          <p className="mt-4 text-lg text-white/50 max-w-2xl">Приезжайте, звоните или пишите — мы всегда на связи</p>
         </div>
       </section>
 

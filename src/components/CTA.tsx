@@ -11,16 +11,9 @@ export default function CTA({ contacts }: { contacts?: ContactsContent; bgSettin
   const whatsapp = contacts?.whatsappUrl ?? "https://wa.me/79884444485";
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-accent anim-gradient" />
-
-      {/* Decorative circles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full border border-white/10 anim-float-slow" />
-        <div className="absolute -bottom-32 -left-32 w-[300px] h-[300px] rounded-full border border-white/[0.06] anim-float-delay" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-white/[0.03] blur-[80px]" />
-      </div>
+    <section className="relative py-24 md:py-32 overflow-hidden bg-dark">
+      {/* Subtle red glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.06] rounded-full blur-[100px] pointer-events-none" />
 
       <ScrollReveal animation="fade-up">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,10 +25,10 @@ export default function CTA({ contacts }: { contacts?: ContactsContent; bgSettin
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[0.92] tracking-tight mb-6">
               Каждый день без газа —<br />
-              <span className="text-white/80">деньги на ветер</span>
+              <span className="text-white/60">деньги на ветер</span>
             </h2>
 
-            <p className="text-white/60 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+            <p className="text-white/40 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
               При пробеге 1 500 км/мес вы переплачиваете за бензин{" "}
               <span className="text-white font-medium">~4 000 ₽ каждый месяц</span>.
               Запишитесь сегодня — начните экономить уже на этой неделе.
@@ -46,14 +39,14 @@ export default function CTA({ contacts }: { contacts?: ContactsContent; bgSettin
                 href={whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 bg-white hover:bg-white/90 text-primary font-bold px-8 py-5 text-lg rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl shadow-lg shadow-black/20"
+                className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary-light text-white font-bold px-8 py-5 text-lg rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl shadow-lg shadow-black/20"
               >
                 {WA_ICON}
                 Записаться бесплатно
               </a>
               <a
                 href={`tel:${phoneRaw}`}
-                className="inline-flex items-center justify-center gap-2 border border-white/25 hover:border-white/50 text-white/80 hover:text-white font-semibold px-8 py-5 text-lg rounded-xl transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/60 hover:text-white font-semibold px-8 py-5 text-lg rounded-xl transition-all duration-300"
               >
                 {phone}
               </a>

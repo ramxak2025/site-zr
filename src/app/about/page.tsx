@@ -26,78 +26,89 @@ export default async function AboutPage() {
       <section className="page-banner pt-28 pb-16">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
-            <span className="sep text-border">/</span>
-            <span className="current text-text-muted">О компании</span>
+            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
+            <span className="sep text-white/20">/</span>
+            <span className="current text-white/40">О компании</span>
           </nav>
-          <h1 className="text-4xl sm:text-5xl font-black text-text leading-tight">О компании</h1>
-          <p className="mt-4 text-lg text-text-secondary max-w-2xl">{about.intro}</p>
+          <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight">О компании</h1>
+          <p className="mt-4 text-lg text-white/50 max-w-2xl">{about.intro}</p>
         </div>
       </section>
 
       <section className="bg-surface py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-24">
-            <span className="section-label mb-4">Наша история</span>
-            <div className="grid lg:grid-cols-2 gap-12 mt-6">
-              <div>
-                <h2 className="text-3xl font-bold text-text mb-6">Более 10 лет мы помогаем водителям экономить</h2>
-                <div className="space-y-4 text-text-secondary leading-relaxed">
-                  {about.history.map((p, i) => <p key={i}>{p}</p>)}
-                </div>
+          <span className="section-label mb-4">Наша история</span>
+          <div className="mt-6">
+            <h2 className="text-3xl font-bold text-text mb-6">Более 10 лет мы помогаем водителям экономить</h2>
+            <div className="space-y-4 text-text-secondary leading-relaxed max-w-3xl">
+              {about.history.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-dark text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {about.stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center justify-center text-center p-6">
+                <span className="text-3xl sm:text-4xl font-black text-white">{stat.value}</span>
+                <span className="mt-2 text-sm text-white/60 font-medium">{stat.label}</span>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                {about.stats.map((stat) => (
-                  <div key={stat.label} className="card p-6 flex flex-col items-center justify-center text-center">
-                    <span className="text-3xl sm:text-4xl font-black text-gradient">{stat.value}</span>
-                    <span className="mt-2 text-sm text-text-muted font-medium">{stat.label}</span>
-                  </div>
-                ))}
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <span className="section-label mb-4">Процесс</span>
+          <h2 className="text-3xl font-bold text-text mt-6 mb-10">Как мы работаем</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {about.steps.map((step, i) => (
+              <div key={i} className="card p-6">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center text-lg font-bold mb-5 shadow-lg">{i + 1}</div>
+                <h3 className="text-lg font-bold text-text mb-2">{step.title}</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">{step.description}</p>
               </div>
-            </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mb-24">
-            <span className="section-label mb-4">Процесс</span>
-            <h2 className="text-3xl font-bold text-text mt-6 mb-10">Как мы работаем</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {about.steps.map((step, i) => (
-                <div key={i} className="card p-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center text-lg font-bold mb-5 shadow-lg">{i + 1}</div>
-                  <h3 className="text-lg font-bold text-text mb-2">{step.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed">{step.description}</p>
+      <section className="bg-surface py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <span className="section-label mb-4">Оборудование</span>
+          <h2 className="text-3xl font-bold text-text mt-6 mb-4">Наше оборудование</h2>
+          <p className="text-text-secondary leading-relaxed max-w-3xl mb-10">Мы используем исключительно сертифицированное европейское оборудование итальянского производства.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {brands.map((brand) => (
+              <div key={brand.name} className="card p-8 text-center">
+                <div className="w-16 h-16 mx-auto rounded-2xl border-2 border-primary flex items-center justify-center mb-5">
+                  <span className="text-2xl font-black text-primary">{brand.name.charAt(0)}</span>
                 </div>
-              ))}
-            </div>
+                <h3 className="text-xl font-bold text-text">{brand.name}</h3>
+                <span className="text-sm text-text-muted">{brand.country}</span>
+                <p className="mt-3 text-text-secondary text-sm leading-relaxed">{brand.description}</p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mb-24">
-            <span className="section-label mb-4">Оборудование</span>
-            <h2 className="text-3xl font-bold text-text mt-6 mb-4">Наше оборудование</h2>
-            <p className="text-text-secondary leading-relaxed max-w-3xl mb-10">Мы используем исключительно сертифицированное европейское оборудование итальянского производства.</p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {brands.map((brand) => (
-                <div key={brand.name} className="card p-8 text-center">
-                  <div className="w-16 h-16 mx-auto rounded-2xl border-2 border-primary flex items-center justify-center mb-5">
-                    <span className="text-2xl font-black text-primary">{brand.name.charAt(0)}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-text">{brand.name}</h3>
-                  <span className="text-sm text-text-muted">{brand.country}</span>
-                  <p className="mt-3 text-text-secondary text-sm leading-relaxed">{brand.description}</p>
-                </div>
-              ))}
-            </div>
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <span className="section-label mb-4">Гарантия качества</span>
+          <h2 className="text-3xl font-bold text-text mt-6 mb-4">Наши сертификаты и лицензии</h2>
+          <div className="max-w-3xl">
+            <p className="text-text-secondary leading-relaxed mb-4">ZR AUTO является сертифицированным центром по установке газобаллонного оборудования. Мы работаем в полном соответствии с правилами ЕЭК ООН и российскими стандартами безопасности.</p>
+            <p className="text-text-secondary leading-relaxed">Всё используемое оборудование имеет сертификаты соответствия. После установки вы получаете полный пакет документов для регистрации изменений.</p>
           </div>
+        </div>
+      </section>
 
-          <div className="mb-24">
-            <span className="section-label mb-4">Гарантия качества</span>
-            <h2 className="text-3xl font-bold text-text mt-6 mb-4">Наши сертификаты и лицензии</h2>
-            <div className="max-w-3xl">
-              <p className="text-text-secondary leading-relaxed mb-4">ZR AUTO является сертифицированным центром по установке газобаллонного оборудования. Мы работаем в полном соответствии с правилами ЕЭК ООН и российскими стандартами безопасности.</p>
-              <p className="text-text-secondary leading-relaxed">Всё используемое оборудование имеет сертификаты соответствия. После установки вы получаете полный пакет документов для регистрации изменений.</p>
-            </div>
-          </div>
-
+      <section className="bg-surface py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="card p-10 text-center">
             <h3 className="text-2xl font-bold text-text mb-2">Остались вопросы?</h3>
             <p className="text-text-secondary mb-8 max-w-lg mx-auto">Свяжитесь с нами — ответим на все вопросы и рассчитаем стоимость для вашего автомобиля</p>

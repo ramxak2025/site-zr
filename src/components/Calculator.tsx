@@ -55,7 +55,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
 
         <div className={`grid ${compact ? "gap-8" : "lg:grid-cols-2 gap-6"}`}>
           {/* Input panel */}
-          <div className="card p-7 md:p-8">
+          <div className="card p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-6 rounded-full bg-gradient-to-b from-primary to-accent" />
               <h3 className="text-text font-bold">Параметры</h3>
@@ -71,7 +71,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
                     onClick={() => setFuelType(type)}
                     className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 ${
                       fuelType === type
-                        ? "bg-primary text-white shadow-md shadow-primary/20"
+                        ? "bg-dark text-white shadow-md"
                         : "bg-surface-alt text-text-secondary hover:text-text border border-border"
                     }`}
                   >
@@ -113,16 +113,16 @@ export default function Calculator({ compact = false }: CalculatorProps) {
           {/* Result panel */}
           <div className="flex flex-col gap-4">
             {/* Main saving */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-accent/5 to-transparent border border-primary/15 p-8 flex-1 flex flex-col justify-center">
-              <div className="absolute top-2 right-4 text-[6rem] font-black text-primary/[0.06] text-display leading-none select-none">
+            <div className="relative overflow-hidden rounded-2xl bg-dark p-8 flex-1 flex flex-col justify-center">
+              <div className="absolute top-2 right-4 text-[6rem] font-black text-white/[0.06] text-display leading-none select-none">
                 {result.savingPercent}%
               </div>
               <div className="relative">
-                <div className="text-text-muted text-xs tracking-wider uppercase mb-2">Экономия в месяц</div>
-                <div className="text-5xl sm:text-6xl font-black text-text text-display mb-2">
+                <div className="text-white/50 text-xs tracking-wider uppercase mb-2">Экономия в месяц</div>
+                <div className="text-5xl sm:text-6xl font-black text-white text-display mb-2">
                   {formatPrice(result.monthlySaving)} ₽
                 </div>
-                <div className="text-primary font-bold text-sm">
+                <div className="text-emerald-400 font-bold text-sm">
                   {result.savingPercent}% экономии на топливе
                 </div>
               </div>

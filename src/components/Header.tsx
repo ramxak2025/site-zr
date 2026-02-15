@@ -48,6 +48,8 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
+  const isHomePage = pathname === "/";
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -57,30 +59,40 @@ export default function Header() {
 
   return (
     <>
-      {/* Desktop header — glass on scroll */}
-      <header className={`fixed top-0 left-0 right-0 z-50 hidden lg:block transition-all duration-300 ${
+      {/* Desktop header */}
+      <header className={`fixed top-0 left-0 right-0 z-50 hidden lg:block transition-all duration-500 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-sm shadow-black/[0.04] border-b border-border/50"
-          : "bg-transparent"
+          ? "bg-white/95 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.06)] border-b border-gray-100"
+          : isHomePage
+            ? "bg-transparent"
+            : "bg-dark"
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between h-[72px]">
             <Link href="/" className="flex items-center gap-3 group">
-              <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-7 w-auto" priority />
-              <div className="text-text font-bold text-sm tracking-wider">ZR AUTO</div>
+              <Image src="/images/logo.png" alt="ZR AUTO" width={40} height={30} className="h-8 w-auto" priority />
+              <div className={`font-bold text-sm tracking-widest transition-colors duration-300 ${
+                scrolled ? "text-text" : isHomePage ? "text-white" : "text-white"
+              }`}>ZR AUTO</div>
             </Link>
 
-            <nav className="flex items-center gap-1">
+            <nav className="flex items-center gap-0.5">
               {DESKTOP_LINKS.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3.5 py-1.5 text-sm rounded-lg transition-all duration-200 ${
+                    className={`px-4 py-2 text-[13px] font-medium rounded-lg transition-all duration-300 ${
                       isActive
-                        ? "text-primary bg-primary/[0.06] font-medium"
-                        : "text-text-secondary hover:text-text hover:bg-surface-alt"
+                        ? scrolled
+                          ? "text-primary bg-primary/[0.06]"
+                          : "text-white bg-white/15"
+                        : scrolled
+                          ? "text-text-secondary hover:text-text hover:bg-gray-50"
+                          : isHomePage
+                            ? "text-white/70 hover:text-white hover:bg-white/10"
+                            : "text-white/70 hover:text-white hover:bg-white/10"
                     }`}
                   >
                     {link.label}
@@ -89,15 +101,20 @@ export default function Header() {
               })}
             </nav>
 
-            <div className="flex items-center gap-3">
-              <a href="tel:+79884444485" className="text-sm text-text-muted hover:text-primary transition-colors">
+            <div className="flex items-center gap-4">
+              <a
+                href="tel:+79884444485"
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  scrolled ? "text-text-secondary hover:text-text" : "text-white/70 hover:text-white"
+                }`}
+              >
                 +7 988 444-44-85
               </a>
               <a
                 href="https://wa.me/79884444485"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary hover:bg-primary-light text-white text-sm font-bold px-5 py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+                className="bg-primary hover:bg-primary-light text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-px"
               >
                 Записаться
               </a>
@@ -107,7 +124,7 @@ export default function Header() {
       </header>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-white/95 backdrop-blur-xl border-t border-border">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe bg-white/95 backdrop-blur-xl border-t border-gray-200">
         <div className="flex items-center justify-around h-14 max-w-lg mx-auto px-1">
           {BOTTOM_NAV.map((link) => {
             const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);

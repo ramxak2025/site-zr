@@ -3,15 +3,6 @@
 import ScrollReveal from "./ScrollReveal";
 import type { ServiceItem } from "@/lib/content";
 
-const GRADIENTS = [
-  "from-primary to-primary-dark",
-  "from-accent to-amber-600",
-  "from-emerald-500 to-emerald-700",
-  "from-violet-500 to-violet-700",
-  "from-sky-500 to-sky-700",
-  "from-rose-500 to-rose-700",
-];
-
 const DEFAULT_SERVICES: ServiceItem[] = [
   { title: "Установка ГБО", description: "Ваш автомобиль на газе уже завтра. Итальянское и европейское оборудование 4-го поколения. Установка за 1 рабочий день.", price: "от 23 000 ₽", features: ["4, 6, 8 цилиндров", "Итальянские системы", "Гарантия 2 года"] },
   { title: "Диагностика ГБО", description: "Компьютерная диагностика с подробным отчётом. Точно определим проблему и предложим решение.", price: "500 ₽", features: ["Компьютерная проверка", "Настройка системы", "Проверка утечек"] },
@@ -23,7 +14,7 @@ export default function Services({ items }: { items?: ServiceItem[] }) {
   const services = items ?? DEFAULT_SERVICES;
 
   return (
-    <section id="services" className="py-24 md:py-32 bg-surface">
+    <section id="services" className="py-24 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
           <ScrollReveal animation="fade-left">
@@ -42,9 +33,9 @@ export default function Services({ items }: { items?: ServiceItem[] }) {
         <div className="grid sm:grid-cols-2 gap-5">
           {services.map((service, i) => (
             <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
-              <div className="card group p-7 md:p-8 h-full">
+              <div className="card group p-8 h-full">
                 <div className="flex items-center justify-between mb-6">
-                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${GRADIENTS[i % GRADIENTS.length]} flex items-center justify-center shadow-lg`}>
+                  <div className="w-12 h-12 rounded-2xl bg-dark flex items-center justify-center">
                     <span className="text-white font-bold text-sm">{String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <span className="badge badge-red">{service.price}</span>
@@ -54,7 +45,7 @@ export default function Services({ items }: { items?: ServiceItem[] }) {
                 <ul className="space-y-2.5 mt-auto">
                   {service.features.map((f) => (
                     <li key={f} className="flex items-center gap-2.5 text-sm text-text-secondary">
-                      <svg className="w-4 h-4 text-primary shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                      <svg className="w-4 h-4 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                       {f}
                     </li>
                   ))}

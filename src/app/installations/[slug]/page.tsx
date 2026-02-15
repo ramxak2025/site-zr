@@ -99,13 +99,13 @@ function InstallationDetail({ installation }: { installation: NonNullable<Awaite
       <div className="page-banner pt-28 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
-            <span className="sep text-border">/</span>
-            <Link href="/installations" className="text-text-secondary hover:text-primary transition-colors">Установки</Link>
-            <span className="sep text-border">/</span>
-            <span className="text-text-muted">{installation.carBrand} {installation.carModel}</span>
+            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
+            <span className="sep text-white/20">/</span>
+            <Link href="/installations" className="text-white/60 hover:text-white transition-colors">Установки</Link>
+            <span className="sep text-white/20">/</span>
+            <span className="text-white/40">{installation.carBrand} {installation.carModel}</span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl font-black text-text mb-4">
+          <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
             Установка ГБО на {installation.carBrand} {installation.carModel} {installation.year}
           </h1>
         </div>
@@ -122,7 +122,7 @@ function InstallationDetail({ installation }: { installation: NonNullable<Awaite
               { label: "Двигатель", value: `${installation.engineVolume}л ${installation.engineType}` },
               { label: "Баллон", value: installation.cylinderVolume },
             ].map((spec) => (
-              <div key={spec.label} className="card-light p-4">
+              <div key={spec.label} className="card p-4">
                 <div className="text-text-muted text-xs mb-1">{spec.label}</div>
                 <div className="text-text font-bold">{spec.value}</div>
               </div>
@@ -148,13 +148,13 @@ function InstallationDetail({ installation }: { installation: NonNullable<Awaite
           </div>
 
           {/* Description */}
-          <div className="card-light p-6 md:p-8 mb-8">
+          <div className="card p-6 md:p-8 mb-8">
             <h2 className="text-xl font-bold text-text mb-4">Описание работы</h2>
             <p className="text-text-secondary leading-relaxed">{installation.description}</p>
           </div>
 
           {/* Calculator */}
-          <div className="card-light p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <h2 className="text-xl font-bold text-text mb-6">Рассчитайте экономию</h2>
             <Calculator compact />
           </div>
@@ -201,16 +201,16 @@ function BrandModelPage({
       <div className="page-banner pt-28 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
-            <span className="sep text-border">/</span>
-            <Link href="/installations" className="text-text-secondary hover:text-primary transition-colors">Установки</Link>
-            <span className="sep text-border">/</span>
-            <span className="text-text-muted">Установка ГБО на {fullName}</span>
+            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
+            <span className="sep text-white/20">/</span>
+            <Link href="/installations" className="text-white/60 hover:text-white transition-colors">Установки</Link>
+            <span className="sep text-white/20">/</span>
+            <span className="text-white/40">Установка ГБО на {fullName}</span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl font-black text-text mb-4">
+          <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
             Установка ГБО на {fullName} в Махачкале
           </h1>
-          <p className="text-text-secondary text-lg max-w-2xl">
+          <p className="text-white/60 text-lg max-w-2xl">
             Профессиональная установка газобаллонного оборудования на {fullName}. Итальянские системы OMVL, Lovato, BRC. Гарантия 2 года. Экономия до 50% на топливе.
           </p>
         </div>
@@ -226,7 +226,7 @@ function BrandModelPage({
               { icon: "clock", title: "За 1 день", desc: "Стандартная установка" },
               { icon: "money", title: "Экономия 50%", desc: "На стоимости топлива" },
             ].map((b) => (
-              <div key={b.title} className="card-light p-5 text-center">
+              <div key={b.title} className="card p-5 text-center">
                 <div className="text-primary font-bold text-lg mb-1">{b.title}</div>
                 <div className="text-text-secondary text-sm">{b.desc}</div>
               </div>
@@ -261,7 +261,7 @@ function BrandModelPage({
           </div>
 
           {/* What's included */}
-          <div className="card-light p-6 md:p-8 mb-10">
+          <div className="card p-6 md:p-8 mb-10">
             <h2 className="text-xl font-bold text-text mb-6">Что входит в установку</h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
@@ -295,7 +295,7 @@ function BrandModelPage({
                   <Link
                     key={inst.id}
                     href={`/installations/${inst.slug}`}
-                    className="card-light p-5 hover:border-primary/20 transition-all"
+                    className="card p-5 hover:border-primary/20 transition-all"
                   >
                     <div className="text-text font-bold mb-1">{inst.carBrand} {inst.carModel} {inst.year}</div>
                     <div className="text-text-secondary text-sm mb-2">{inst.gboSystem} • {inst.gboGeneration} поколение</div>
@@ -307,7 +307,7 @@ function BrandModelPage({
           )}
 
           {/* Calculator */}
-          <div className="card-light p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <h2 className="text-xl font-bold text-text mb-6">Рассчитайте окупаемость для {fullName}</h2>
             <Calculator compact />
           </div>

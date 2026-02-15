@@ -14,12 +14,12 @@ export default function CalculatorPage() {
       <div className="page-banner pt-28 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="breadcrumb mb-6">
-            <Link href="/" className="text-text-secondary hover:text-primary transition-colors">Главная</Link>
-            <span className="sep text-border">/</span>
-            <span className="text-text-muted">Калькулятор окупаемости</span>
+            <Link href="/" className="text-white/60 hover:text-white transition-colors">Главная</Link>
+            <span className="sep text-white/20">/</span>
+            <span className="text-white/40">Калькулятор окупаемости</span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl font-black text-text mb-4">Калькулятор окупаемости ГБО</h1>
-          <p className="text-text-secondary text-lg max-w-2xl">
+          <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">Калькулятор окупаемости ГБО</h1>
+          <p className="text-white/50 text-lg max-w-2xl">
             Рассчитайте, за сколько месяцев окупится установка газобаллонного оборудования на ваш автомобиль
           </p>
         </div>
@@ -40,7 +40,7 @@ export default function CalculatorPage() {
                 { q: "Увеличивается ли расход газа по сравнению с бензином?", a: "Да, расход газа примерно на 10-15% выше, чем бензина. Однако газ стоит почти в 2 раза дешевле, поэтому итоговая экономия составляет 40-50%." },
                 { q: "Безопасно ли ГБО?", a: "Современное ГБО 4 поколения абсолютно безопасно при профессиональной установке. Мы используем сертифицированное оборудование и термопластиковые магистрали." },
               ].map((faq, i) => (
-                <details key={i} className="card-light group">
+                <details key={i} className="card group">
                   <summary className="p-5 cursor-pointer text-text font-medium flex items-center justify-between">
                     {faq.q}
                     <svg className="w-5 h-5 text-text-muted group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

@@ -12,7 +12,7 @@ const POPULAR_MODELS = [
 
 export default function PopularCars() {
   return (
-    <section className="py-24 md:py-32 bg-surface-alt">
+    <section className="py-24 md:py-32 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
           <span className="section-label">По маркам</span>
@@ -30,10 +30,7 @@ export default function PopularCars() {
                 href={`/installations/${slug}`}
                 className="card group p-5 flex items-center justify-between"
               >
-                <div>
-                  <div className="text-text font-semibold group-hover:text-primary transition-colors duration-300">{brand} {model}</div>
-                  <div className="text-text-muted text-xs tracking-wider uppercase mt-0.5">ГБО</div>
-                </div>
+                <span className="text-text font-semibold group-hover:text-primary transition-colors duration-300">{brand} {model}</span>
                 <svg className="w-4 h-4 text-text-muted/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
@@ -43,7 +40,7 @@ export default function PopularCars() {
         </div>
 
         {/* All brands */}
-        <div className="card p-7 md:p-8">
+        <div className="card p-8">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-1 h-6 rounded-full bg-gradient-to-b from-primary to-accent" />
             <h3 className="text-text font-bold">Все марки</h3>
