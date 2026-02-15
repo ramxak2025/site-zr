@@ -9,22 +9,27 @@ import CTA from "@/components/CTA";
 import Reviews from "@/components/Reviews";
 import InstallationCard from "@/components/InstallationCard";
 import { getPublishedInstallations } from "@/lib/storage";
+import { getSiteContent } from "@/lib/content-storage";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
-  const installations = await getPublishedInstallations();
+  const [installations, content] = await Promise.all([
+    getPublishedInstallations(),
+    getSiteContent(),
+  ]);
   const latestInstallations = installations.slice(0, 3);
 
   return (
     <>
-      <Hero />
+      <Hero content={content.hero} />
       <Marquee />
-      <Services />
+      <Services items={content.services} />
       <Advantages />
       <Calculator />
       <Brands />
 
-      {/* Latest installations section */}
       {latestInstallations.length > 0 && (
         <section className="py-24 md:py-32 bg-surface">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,9 +62,9 @@ export default async function Home() {
         </section>
       )}
 
-      <Reviews />
+      <Reviews items={content.reviews} platforms={content.reviewPlatforms} />
       <PopularCars />
-      <CTA />
+      <CTA contacts={content.contacts} />
     </>
   );
 }

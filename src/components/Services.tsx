@@ -1,54 +1,35 @@
 "use client";
 
 import ScrollReveal from "./ScrollReveal";
+import type { ServiceItem } from "@/lib/content";
 
-const SERVICES = [
-  {
-    num: "01",
-    title: "Установка ГБО",
-    price: "от 23 000 ₽",
-    description: "Ваш автомобиль на газе уже завтра. Итальянское и европейское оборудование 4-го поколения. Установка за 1 рабочий день.",
-    features: ["4, 6, 8 цилиндров", "Итальянские системы", "Гарантия 2 года"],
-    gradient: "from-primary to-primary-dark",
-  },
-  {
-    num: "02",
-    title: "Диагностика ГБО",
-    price: "500 ₽",
-    description: "Компьютерная диагностика с подробным отчётом. Точно определим проблему и предложим решение.",
-    features: ["Компьютерная проверка", "Настройка системы", "Проверка утечек"],
-    gradient: "from-accent to-amber-600",
-  },
-  {
-    num: "03",
-    title: "Ремонт ГБО",
-    price: "от 1 000 ₽",
-    description: "Восстановим работу газовой системы любой сложности. Оригинальные запчасти всегда в наличии.",
-    features: ["Любая сложность", "Оригинальные запчасти", "Быстрый ремонт"],
-    gradient: "from-emerald-500 to-emerald-700",
-  },
-  {
-    num: "04",
-    title: "Техобслуживание",
-    price: "от 1 500 ₽",
-    description: "Регулярное ТО — залог долгой и безопасной работы ГБО. Продлите гарантию и ресурс системы.",
-    features: ["Замена фильтров", "Проверка системы", "Продление гарантии"],
-    gradient: "from-violet-500 to-violet-700",
-  },
+const GRADIENTS = [
+  "from-primary to-primary-dark",
+  "from-accent to-amber-600",
+  "from-emerald-500 to-emerald-700",
+  "from-violet-500 to-violet-700",
+  "from-sky-500 to-sky-700",
+  "from-rose-500 to-rose-700",
 ];
 
-export default function Services() {
+const DEFAULT_SERVICES: ServiceItem[] = [
+  { title: "Установка ГБО", description: "Ваш автомобиль на газе уже завтра. Итальянское и европейское оборудование 4-го поколения. Установка за 1 рабочий день.", price: "от 23 000 ₽", features: ["4, 6, 8 цилиндров", "Итальянские системы", "Гарантия 2 года"] },
+  { title: "Диагностика ГБО", description: "Компьютерная диагностика с подробным отчётом. Точно определим проблему и предложим решение.", price: "500 ₽", features: ["Компьютерная проверка", "Настройка системы", "Проверка утечек"] },
+  { title: "Ремонт ГБО", description: "Восстановим работу газовой системы любой сложности. Оригинальные запчасти всегда в наличии.", price: "от 1 000 ₽", features: ["Любая сложность", "Оригинальные запчасти", "Быстрый ремонт"] },
+  { title: "Техобслуживание", description: "Регулярное ТО — залог долгой и безопасной работы ГБО. Продлите гарантию и ресурс системы.", price: "от 1 500 ₽", features: ["Замена фильтров", "Проверка системы", "Продление гарантии"] },
+];
+
+export default function Services({ items }: { items?: ServiceItem[] }) {
+  const services = items ?? DEFAULT_SERVICES;
+
   return (
     <section id="services" className="py-24 md:py-32 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
           <ScrollReveal animation="fade-left">
             <span className="section-label">Услуги</span>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.92] tracking-tight">
-              Полный спектр
-              <br />
-              <span className="text-text-muted">работ по ГБО</span>
+              Полный спектр<br /><span className="text-text-muted">работ по ГБО</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal animation="fade-right" className="flex items-end lg:justify-end">
@@ -58,24 +39,18 @@ export default function Services() {
           </ScrollReveal>
         </div>
 
-        {/* Services grid */}
         <div className="grid sm:grid-cols-2 gap-5">
-          {SERVICES.map((service, i) => (
-            <ScrollReveal key={service.num} animation="fade-up" delay={i * 100}>
+          {services.map((service, i) => (
+            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
               <div className="card group p-7 md:p-8 h-full">
                 <div className="flex items-center justify-between mb-6">
-                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}>
-                    <span className="text-white font-bold text-sm">{service.num}</span>
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${GRADIENTS[i % GRADIENTS.length]} flex items-center justify-center shadow-lg`}>
+                    <span className="text-white font-bold text-sm">{String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <span className="badge badge-red">{service.price}</span>
                 </div>
-
-                <h3 className="text-text font-bold text-xl mb-3 group-hover:text-primary transition-colors duration-300">
-                  {service.title}
-                </h3>
-
+                <h3 className="text-text font-bold text-xl mb-3 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
                 <p className="text-text-secondary text-sm leading-relaxed mb-6">{service.description}</p>
-
                 <ul className="space-y-2.5 mt-auto">
                   {service.features.map((f) => (
                     <li key={f} className="flex items-center gap-2.5 text-sm text-text-secondary">

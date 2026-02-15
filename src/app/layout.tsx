@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getSiteContent } from "@/lib/content-storage";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zrauto.ru"),
@@ -35,7 +36,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://zrauto.ru" },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const content = await getSiteContent();
+
   return (
     <html lang="ru">
       <head>
@@ -48,7 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="bg-dark text-text antialiased font-sans pb-16 lg:pb-0">
         <Header />
         <main className="min-h-screen">{children}</main>
-        <Footer />
+        <Footer contacts={content.contacts} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -58,7 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               name: "ZR AUTO",
               description: "Центр по установке и ремонту ГБО в Махачкале",
               url: "https://zrauto.ru",
-              telephone: "+79884444485",
+              telephone: content.contacts.phoneRaw,
               address: { "@type": "PostalAddress", streetAddress: "ул. Хаджи Булача 71", addressLocality: "Махачкала", addressRegion: "Дагестан", addressCountry: "RU" },
               geo: { "@type": "GeoCoordinates", latitude: 42.9849, longitude: 47.5047 },
               openingHoursSpecification: [
@@ -66,7 +69,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday", opens: "14:00", closes: "19:00" },
               ],
               priceRange: "от 23000₽",
-              sameAs: ["https://t.me/zrauto","https://vk.com/zr.auto","https://youtube.com/@05auto"],
+              sameAs: content.contacts.socials.map((s) => s.url),
             }),
           }}
         />
