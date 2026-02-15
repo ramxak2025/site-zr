@@ -2,13 +2,13 @@
 
 import ScrollReveal from "./ScrollReveal";
 import AnimatedCounter from "./AnimatedCounter";
+import LiveBg from "./LiveBg";
 
 export default function Advantages() {
   return (
     <section id="advantages" className="py-24 md:py-32 bg-dark relative overflow-hidden grain">
-      {/* Background accents */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[80px]" />
+      {/* Interactive live canvas background */}
+      <LiveBg />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal animation="fade-up">

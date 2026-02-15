@@ -1,25 +1,13 @@
 "use client";
 
 import AnimatedCounter from "./AnimatedCounter";
+import LiveBg from "./LiveBg";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col bg-dark overflow-hidden grain">
-      {/* Gradient mesh blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="mesh-blob absolute w-[600px] h-[600px] -top-40 -left-40 rounded-full bg-primary/20" />
-        <div className="mesh-blob mesh-blob-2 absolute w-[500px] h-[500px] top-1/3 right-0 rounded-full bg-accent/10" />
-        <div className="mesh-blob mesh-blob-3 absolute w-[400px] h-[400px] bottom-0 left-1/3 rounded-full bg-primary/10" />
-      </div>
-
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
-      />
+      {/* Interactive live canvas background */}
+      <LiveBg />
 
       {/* Main content */}
       <div className="relative z-10 flex-1 flex items-center">

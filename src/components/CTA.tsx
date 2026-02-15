@@ -1,11 +1,12 @@
+"use client";
+
+import LiveBg from "./LiveBg";
+
 export default function CTA() {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden bg-dark grain">
-      {/* Gradient mesh */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="mesh-blob absolute w-[500px] h-[500px] -bottom-40 -left-40 rounded-full bg-primary/15" />
-        <div className="mesh-blob mesh-blob-2 absolute w-[400px] h-[400px] top-0 right-0 rounded-full bg-accent/10" />
-      </div>
+      {/* Interactive live canvas background */}
+      <LiveBg />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
