@@ -1,3 +1,7 @@
+"use client";
+
+import ScrollReveal from "./ScrollReveal";
+
 const REVIEWS = [
   { name: "Алексей М.", car: "Kia Rio 2023", rating: 5, text: "Установил OMVL — разницы с бензином не чувствую. Расход 8.5 литров, а заправка в 2 раза дешевле. За 4 месяца всё окупилось!", platform: "Яндекс Карты" },
   { name: "Магомед А.", car: "Toyota Camry 2022", rating: 5, text: "Сделали за один день. Баллон в нишу запаски — багажник полностью свободен. Качество на уровне дилера, а цена в разы ниже.", platform: "2ГИС" },
@@ -30,14 +34,13 @@ export default function Reviews() {
     <section id="reviews" className="py-24 md:py-32 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
-          <div className="animate-reveal">
+          <ScrollReveal animation="fade-left">
             <span className="section-label">Отзывы</span>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
               Нам <span className="text-text-muted">доверяют</span>
             </h2>
-          </div>
-          <div className="flex items-end lg:justify-end animate-reveal delay-1">
-            {/* Platform links */}
+          </ScrollReveal>
+          <ScrollReveal animation="fade-right" className="flex items-end lg:justify-end">
             <div className="flex gap-3">
               {PLATFORMS.map((p) => (
                 <a
@@ -55,25 +58,27 @@ export default function Reviews() {
                 </a>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
-        {/* Review cards */}
+        {/* Review cards with staggered scroll reveal */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {REVIEWS.map((review, i) => (
-            <div key={i} className={`card-light p-6 md:p-8 animate-reveal delay-${Math.min(i + 2, 8)}`}>
-              <Stars count={review.rating} />
-              <p className="text-text-secondary text-sm leading-relaxed mt-4 mb-6">&ldquo;{review.text}&rdquo;</p>
-              <div className="flex items-center justify-between border-t border-border pt-4">
-                <div>
-                  <div className="text-text font-semibold text-sm">{review.name}</div>
-                  <div className="text-text-muted text-xs">{review.car}</div>
+            <ScrollReveal key={i} animation="flip" delay={i * 100}>
+              <div className="card-light card-tilt p-6 md:p-8 h-full flex flex-col">
+                <Stars count={review.rating} />
+                <p className="text-text-secondary text-sm leading-relaxed mt-4 mb-6 flex-1">&ldquo;{review.text}&rdquo;</p>
+                <div className="flex items-center justify-between border-t border-border pt-4">
+                  <div>
+                    <div className="text-text font-semibold text-sm">{review.name}</div>
+                    <div className="text-text-muted text-xs">{review.car}</div>
+                  </div>
+                  <span className="text-[10px] text-text-muted border border-border px-2 py-1 rounded-md font-medium tracking-wider uppercase">
+                    {review.platform}
+                  </span>
                 </div>
-                <span className="text-[10px] text-text-muted border border-border px-2 py-1 rounded-md font-medium tracking-wider uppercase">
-                  {review.platform}
-                </span>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

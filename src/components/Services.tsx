@@ -1,3 +1,7 @@
+"use client";
+
+import ScrollReveal from "./ScrollReveal";
+
 const SERVICES = [
   {
     num: "01",
@@ -56,57 +60,56 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="grid lg:grid-cols-2 gap-6 mb-16">
-          <div>
+          <ScrollReveal animation="fade-left">
             <span className="section-label">Услуги</span>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text mt-3 leading-[0.95]">
               Полный спектр
               <br />
               <span className="text-text/20">работ по ГБО</span>
             </h2>
-          </div>
-          <div className="flex items-end lg:justify-end">
+          </ScrollReveal>
+          <ScrollReveal animation="fade-right" className="flex items-end lg:justify-end">
             <p className="text-text-secondary text-lg max-w-md">
               От установки «под ключ» до планового обслуживания — всё в одном месте с гарантией качества
             </p>
-          </div>
+          </ScrollReveal>
         </div>
 
-        {/* Services grid — card-light style */}
+        {/* Services grid — card-light with scroll reveal */}
         <div className="grid sm:grid-cols-2 gap-4">
-          {SERVICES.map((service) => (
-            <div
-              key={service.num}
-              className="card-light p-6 md:p-8 group"
-            >
-              {/* Icon circle + number */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                  {service.icon}
+          {SERVICES.map((service, i) => (
+            <ScrollReveal key={service.num} animation="fade-up" delay={i * 120}>
+              <div className="card-light card-tilt p-6 md:p-8 group h-full">
+                {/* Icon circle + number */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <span className="text-text-muted/30 text-sm font-bold text-display">{service.num}</span>
                 </div>
-                <span className="text-text-muted/30 text-sm font-bold text-display">{service.num}</span>
+
+                {/* Title */}
+                <h3 className="text-text font-bold text-xl mb-1 group-hover:text-primary transition-colors duration-300">
+                  {service.title}
+                </h3>
+
+                {/* Price */}
+                <span className="text-primary font-bold text-lg text-display">{service.price}</span>
+
+                {/* Description */}
+                <p className="text-text-secondary text-sm leading-relaxed mt-4 mb-5">{service.description}</p>
+
+                {/* Features */}
+                <ul className="space-y-2">
+                  {service.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              {/* Title */}
-              <h3 className="text-text font-bold text-xl mb-1 group-hover:text-primary transition-colors duration-300">
-                {service.title}
-              </h3>
-
-              {/* Price */}
-              <span className="text-primary font-bold text-lg text-display">{service.price}</span>
-
-              {/* Description */}
-              <p className="text-text-secondary text-sm leading-relaxed mt-4 mb-5">{service.description}</p>
-
-              {/* Features */}
-              <ul className="space-y-2">
-                {service.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-text-secondary">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
