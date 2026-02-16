@@ -65,7 +65,7 @@ function parseBrandModelFromSlug(slug: string): { brand: string; model: string }
   return null;
 }
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function InstallationPage({ params }: PageProps) {
   const { slug } = await params;

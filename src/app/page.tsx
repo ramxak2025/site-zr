@@ -12,7 +12,7 @@ import { getPublishedInstallations } from "@/lib/storage";
 import { getSiteContent } from "@/lib/content-storage";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home() {
   const [installations, content] = await Promise.all([

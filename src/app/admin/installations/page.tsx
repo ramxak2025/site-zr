@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Installation } from "@/lib/data";
 import { formatPrice } from "@/lib/data";
 
@@ -47,10 +48,18 @@ export default function AdminInstallations() {
     );
   }
 
+  const published = installations.filter((i) => i.published).length;
+  const drafts = installations.length - published;
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold text-white">Управление установками</h1>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-white">Установки</h1>
+          <p className="text-gray-500 text-sm mt-1">
+            {installations.length} всего / {published} опубликовано / {drafts} черновиков
+          </p>
+        </div>
         <Link
           href="/admin/installations/new"
           className="bg-primary hover:bg-primary-light text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors flex items-center gap-2"
@@ -62,41 +71,68 @@ export default function AdminInstallations() {
 
       <div className="admin-card rounded-xl overflow-hidden">
         {installations.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
-            Пока нет установок. Добавьте первую!
+          <div className="text-center py-16">
+            <svg className="w-12 h-12 text-gray-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>
+            <div className="text-gray-400 font-medium mb-2">Пока нет установок</div>
+            <Link href="/admin/installations/new" className="text-primary hover:text-primary-light text-sm font-medium transition-colors">
+              Добавить первую
+            </Link>
           </div>
         ) : (
           <div className="divide-y divide-white/5">
             {installations.map((inst) => (
-              <div key={inst.id} className="p-4 hover:bg-white/5 transition-colors">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <button
-                      onClick={() => togglePublish(inst.id, inst.published)}
-                      className={`w-3 h-3 rounded-full shrink-0 transition-colors ${
-                        inst.published ? "bg-primary hover:bg-primary-light" : "bg-gray-500 hover:bg-gray-400"
-                      }`}
-                      title={inst.published ? "Опубликовано" : "Черновик"}
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="text-white font-medium truncate">
+              <div key={inst.id} className="p-4 hover:bg-white/[0.03] transition-colors">
+                <div className="flex items-center gap-4">
+                  {/* Thumbnail */}
+                  <div className="w-16 h-12 rounded-lg overflow-hidden bg-white/5 shrink-0 relative">
+                    {inst.images && inst.images.length > 0 ? (
+                      <Image src={inst.images[0]} alt="" fill className="object-cover" sizes="64px" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2 h-2 rounded-full shrink-0 ${inst.published ? "bg-emerald-400" : "bg-gray-500"}`} />
+                      <span className="text-white font-medium truncate">
                         {inst.carBrand} {inst.carModel} {inst.year}
-                      </div>
-                      <div className="text-gray-500 text-sm">
-                        {inst.gboSystem} • {inst.gboGeneration} пок. • {formatPrice(inst.price)} ₽
-                      </div>
+                      </span>
+                    </div>
+                    <div className="text-gray-500 text-sm mt-0.5">
+                      {inst.gboSystem} / {inst.gboGeneration} пок. / {formatPrice(inst.price)} ₽
+                      {inst.images?.length > 0 && <span className="ml-2 text-gray-600">{inst.images.length} фото</span>}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 ml-4">
+                  {/* Actions */}
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      onClick={() => togglePublish(inst.id, inst.published)}
+                      className={`p-2 rounded-lg transition-all text-sm ${
+                        inst.published
+                          ? "text-emerald-400 hover:bg-emerald-400/10"
+                          : "text-gray-500 hover:bg-white/5"
+                      }`}
+                      title={inst.published ? "Снять с публикации" : "Опубликовать"}
+                    >
+                      {inst.published ? (
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      )}
+                    </button>
                     <a
                       href={`/installations/${inst.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 text-gray-500 hover:text-white rounded-lg hover:bg-white/5 transition-all"
-                      title="Смотреть"
+                      title="Смотреть на сайте"
                     >
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
                     </a>
                     <Link
                       href={`/admin/installations/${inst.id}`}

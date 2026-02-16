@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://zrauto.ru/installations" },
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function InstallationsPage({
   searchParams,
