@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Calculator from "@/components/Calculator";
 import Link from "next/link";
+import { getSiteContent } from "@/lib/content-storage";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Калькулятор окупаемости ГБО — Рассчитайте экономию на топливе",
@@ -8,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://zrauto.ru/calculator" },
 };
 
-export default function CalculatorPage() {
+export default async function CalculatorPage() {
+  const content = await getSiteContent();
   return (
     <div className="inner-page">
       <div className="page-banner pt-28 pb-16">
@@ -28,7 +32,7 @@ export default function CalculatorPage() {
       {/* Main content - light */}
       <div className="bg-surface py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Calculator compact />
+          <Calculator compact fuelPrices={content.fuelPrices} pricing={content.pricing} />
 
           {/* FAQ section */}
           <div className="mt-16">

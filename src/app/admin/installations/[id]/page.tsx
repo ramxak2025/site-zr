@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { adminFetch } from "@/lib/admin-client";
 import { CAR_BRANDS, GBO_SYSTEMS, generateSlug } from "@/lib/data";
 import type { Installation } from "@/lib/data";
 
@@ -55,9 +56,8 @@ export default function EditInstallation({ params }: { params: Promise<{ id: str
     const slug = generateSlug(form.carBrand, form.carModel, form.year);
     const updated = { ...form, slug };
 
-    const res = await fetch(`/api/installations/${id}`, {
+    const res = await adminFetch(`/api/installations/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updated),
     });
 

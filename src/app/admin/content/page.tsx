@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { adminFetch } from "@/lib/admin-client";
 import type {
   SiteContent, HeroContent, ServiceItem, ReviewItem,
   ReviewPlatform, ContactsContent, AboutContent, BackgroundSettings,
@@ -92,15 +93,17 @@ export default function ContentEditor() {
   const save = useCallback(async (section: keyof SiteContent, data: unknown) => {
     setSaving(true);
     try {
-      const res = await fetch("/api/content", {
+      const res = await adminFetch("/api/content", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ section, data }),
       });
       if (res.ok) {
         setToast("Сохранено!");
-        setTimeout(() => setToast(""), 2500);
+      } else {
+        const err = await res.json().catch(() => ({}));
+        setToast(err.error || "Ошибка сохранения");
       }
+      setTimeout(() => setToast(""), 2500);
     } finally {
       setSaving(false);
     }

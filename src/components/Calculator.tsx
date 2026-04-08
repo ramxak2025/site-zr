@@ -1,22 +1,25 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { FUEL_PRICES, formatPrice } from "@/lib/data";
+import { formatPrice } from "@/lib/data";
+import type { FuelPricesContent, InstallationPricing } from "@/lib/content";
 import Link from "next/link";
 
 interface CalculatorProps {
   compact?: boolean;
+  fuelPrices: FuelPricesContent;
+  pricing?: InstallationPricing;
 }
 
-export default function Calculator({ compact = false }: CalculatorProps) {
+export default function Calculator({ compact = false, fuelPrices, pricing }: CalculatorProps) {
   const [fuelType, setFuelType] = useState<"gasoline92" | "gasoline95" | "gasoline98">("gasoline95");
   const [consumption, setConsumption] = useState(10);
   const [mileage, setMileage] = useState(1500);
-  const [installCost, setInstallCost] = useState(30000);
+  const [installCost, setInstallCost] = useState(pricing?.cyl4.price ?? 30000);
 
   const result = useMemo(() => {
-    const gasolinePrice = FUEL_PRICES[fuelType];
-    const lpgPrice = FUEL_PRICES.lpg;
+    const gasolinePrice = fuelPrices[fuelType];
+    const lpgPrice = fuelPrices.lpg;
     const lpgConsumption = consumption * 1.15;
 
     const monthlyGasolineCost = (mileage / 100) * consumption * gasolinePrice;
@@ -33,7 +36,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
       paybackMonths,
       savingPercent: Math.round((monthlySaving / monthlyGasolineCost) * 100),
     };
-  }, [fuelType, consumption, mileage, installCost]);
+  }, [fuelType, consumption, mileage, installCost, fuelPrices]);
 
   const fuelLabels: Record<string, string> = {
     gasoline92: "АИ-92",
@@ -80,7 +83,7 @@ export default function Calculator({ compact = false }: CalculatorProps) {
                 ))}
               </div>
               <div className="text-right text-xs text-text-muted mt-2">
-                {FUEL_PRICES[fuelType]} ₽/л &bull; Газ {FUEL_PRICES.lpg} ₽/л
+                {fuelPrices[fuelType]} ₽/л &bull; Газ {fuelPrices.lpg} ₽/л
               </div>
             </div>
 

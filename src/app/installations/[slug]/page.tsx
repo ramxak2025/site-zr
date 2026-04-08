@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { getPublishedInstallations, getInstallationBySlug } from "@/lib/storage";
-import { formatPrice, CAR_BRANDS, SAMPLE_INSTALLATIONS } from "@/lib/data";
+import { formatPrice, CAR_BRANDS } from "@/lib/data";
+import { getSiteContent } from "@/lib/content-storage";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Calculator from "@/components/Calculator";
+import type { FuelPricesContent, InstallationPricing } from "@/lib/content";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -69,7 +71,10 @@ export const revalidate = 60;
 
 export default async function InstallationPage({ params }: PageProps) {
   const { slug } = await params;
-  const installation = await getInstallationBySlug(slug);
+  const [installation, content] = await Promise.all([
+    getInstallationBySlug(slug),
+    getSiteContent(),
+  ]);
   const brandModel = parseBrandModelFromSlug(slug);
 
   if (!installation && !brandModel) {
@@ -78,7 +83,7 @@ export default async function InstallationPage({ params }: PageProps) {
 
   // If we have a real installation with data
   if (installation) {
-    return <InstallationDetail installation={installation} />;
+    return <InstallationDetail installation={installation} fuelPrices={content.fuelPrices} pricing={content.pricing} />;
   }
 
   // Otherwise, generate a selling page for this brand/model
@@ -87,13 +92,13 @@ export default async function InstallationPage({ params }: PageProps) {
     const related = allInstallations.filter(
       (i) => i.carBrand.toLowerCase() === brandModel.brand.toLowerCase()
     );
-    return <BrandModelPage brand={brandModel.brand} model={brandModel.model} related={related} />;
+    return <BrandModelPage brand={brandModel.brand} model={brandModel.model} related={related} fuelPrices={content.fuelPrices} pricing={content.pricing} />;
   }
 
   notFound();
 }
 
-function InstallationDetail({ installation }: { installation: NonNullable<Awaited<ReturnType<typeof getInstallationBySlug>>> }) {
+function InstallationDetail({ installation, fuelPrices, pricing }: { installation: NonNullable<Awaited<ReturnType<typeof getInstallationBySlug>>>; fuelPrices: FuelPricesContent; pricing: InstallationPricing }) {
   return (
     <div className="inner-page">
       <div className="page-banner pt-28 pb-16">
@@ -156,7 +161,7 @@ function InstallationDetail({ installation }: { installation: NonNullable<Awaite
           {/* Calculator */}
           <div className="card p-6 md:p-8">
             <h2 className="text-xl font-bold text-text mb-6">Рассчитайте экономию</h2>
-            <Calculator compact />
+            <Calculator compact fuelPrices={fuelPrices} pricing={pricing} />
           </div>
 
           {/* Structured data */}
@@ -189,10 +194,14 @@ function BrandModelPage({
   brand,
   model,
   related,
+  fuelPrices,
+  pricing,
 }: {
   brand: string;
   model: string;
   related: Awaited<ReturnType<typeof getPublishedInstallations>>;
+  fuelPrices: FuelPricesContent;
+  pricing: InstallationPricing;
 }) {
   const fullName = model ? `${brand} ${model}` : brand;
 
@@ -238,9 +247,10 @@ function BrandModelPage({
             <h2 className="text-xl font-bold text-text mb-4">Стоимость установки ГБО на {fullName}</h2>
             <div className="space-y-3">
               {[
-                { label: "4 цилиндра (рядный)", price: "от 23 000 ₽" },
-                { label: "6 цилиндров", price: "от 30 000 ₽" },
-                { label: "8 цилиндров", price: "от 38 000 ₽" },
+                { label: "4 цилиндра (рядный)", price: `от ${formatPrice(pricing.cyl4.price)} ₽` },
+                { label: "6 цилиндров", price: `от ${formatPrice(pricing.cyl6.price)} ₽` },
+                { label: "8 цилиндров", price: `от ${formatPrice(pricing.cyl8.price)} ₽` },
+                { label: "Непосредственный впрыск", price: `от ${formatPrice(pricing.directInjection.price)} ₽` },
               ].map((p) => (
                 <div key={p.label} className="flex items-center justify-between py-2 border-b border-border last:border-0">
                   <span className="text-text-secondary">{p.label}</span>
@@ -309,7 +319,7 @@ function BrandModelPage({
           {/* Calculator */}
           <div className="card p-6 md:p-8">
             <h2 className="text-xl font-bold text-text mb-6">Рассчитайте окупаемость для {fullName}</h2>
-            <Calculator compact />
+            <Calculator compact fuelPrices={fuelPrices} pricing={pricing} />
           </div>
 
           {/* Schema.org for service */}

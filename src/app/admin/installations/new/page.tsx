@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { adminFetch } from "@/lib/admin-client";
 import { CAR_BRANDS, GBO_SYSTEMS, generateSlug } from "@/lib/data";
 
 export default function NewInstallation() {
@@ -76,9 +77,8 @@ export default function NewInstallation() {
       createdAt: new Date().toISOString().split("T")[0],
     };
 
-    const res = await fetch("/api/installations", {
+    const res = await adminFetch("/api/installations", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(installation),
     });
 

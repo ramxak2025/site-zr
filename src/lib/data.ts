@@ -317,7 +317,10 @@ export const SAMPLE_INSTALLATIONS: Installation[] = [
   },
 ];
 
-export const FUEL_PRICES = {
+/** Fallback fuel prices. Actual prices are stored in content.fuelPrices and
+ * managed via admin panel. These values are only used if the content store is
+ * not yet initialized. */
+export const FUEL_PRICES_FALLBACK = {
   gasoline92: 54.5,
   gasoline95: 59.0,
   gasoline98: 66.0,

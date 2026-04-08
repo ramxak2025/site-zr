@@ -94,6 +94,28 @@ export interface BackgroundSettings {
   particleDensity: number;  // 0-100
 }
 
+/* ── Installation Pricing (admin-editable) ─────────────── */
+export interface InstallationPriceItem {
+  price: number;
+  note: string;
+}
+
+export interface InstallationPricing {
+  cyl4: InstallationPriceItem;          // 4 цилиндра
+  cyl6: InstallationPriceItem;          // 6 цилиндров
+  cyl8: InstallationPriceItem;          // 8 цилиндров
+  directInjection: InstallationPriceItem; // непосредственный впрыск
+}
+
+/* ── Fuel Prices (admin-editable, for calculator) ───────── */
+export interface FuelPricesContent {
+  gasoline92: number;
+  gasoline95: number;
+  gasoline98: number;
+  lpg: number;
+  updatedAt: string;
+}
+
 export interface SiteContent {
   hero: HeroContent;
   services: ServiceItem[];
@@ -102,6 +124,8 @@ export interface SiteContent {
   contacts: ContactsContent;
   about: AboutContent;
   background: BackgroundSettings;
+  pricing: InstallationPricing;
+  fuelPrices: FuelPricesContent;
 }
 
 export const DEFAULT_CONTENT: SiteContent = {
@@ -212,5 +236,18 @@ export const DEFAULT_CONTENT: SiteContent = {
     accentMix: 15,
     speed: 50,
     particleDensity: 60,
+  },
+  pricing: {
+    cyl4: { price: 23000, note: "Kia, Hyundai, VW, Skoda, Lada" },
+    cyl6: { price: 30000, note: "Toyota, Nissan, Ford, Hyundai" },
+    cyl8: { price: 38000, note: "BMW, Mercedes, Land Cruiser" },
+    directInjection: { price: 45000, note: "Двигатели FSI, TSI, GDI, SkyActiv" },
+  },
+  fuelPrices: {
+    gasoline92: 54.5,
+    gasoline95: 59.0,
+    gasoline98: 66.0,
+    lpg: 28.0,
+    updatedAt: new Date().toISOString().split("T")[0],
   },
 };

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { adminFetch } from "@/lib/admin-client";
 import type { Installation } from "@/lib/data";
 import { formatPrice } from "@/lib/data";
 
@@ -10,31 +11,30 @@ export default function AdminInstallations() {
   const [installations, setInstallations] = useState<Installation[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  function loadData() {
+  const loadData = useCallback(() => {
     fetch("/api/installations")
       .then((r) => r.json())
       .then((data) => {
         setInstallations(data);
         setLoading(false);
       });
-  }
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   async function handleDelete(id: string) {
     if (!confirm("Удалить эту установку?")) return;
-    await fetch(`/api/installations/${id}`, { method: "DELETE" });
+    await adminFetch(`/api/installations/${id}`, { method: "DELETE" });
     loadData();
   }
 
   async function togglePublish(id: string, published: boolean) {
     const inst = installations.find((i) => i.id === id);
     if (!inst) return;
-    await fetch(`/api/installations/${id}`, {
+    await adminFetch(`/api/installations/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...inst, published: !published }),
     });
     loadData();

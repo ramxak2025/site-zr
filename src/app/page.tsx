@@ -8,6 +8,7 @@ import PopularCars from "@/components/PopularCars";
 import CTA from "@/components/CTA";
 import Reviews from "@/components/Reviews";
 import InstallationCard from "@/components/InstallationCard";
+import BentoShowcase from "@/components/BentoShowcase";
 import { getPublishedInstallations } from "@/lib/storage";
 import { getSiteContent } from "@/lib/content-storage";
 import Link from "next/link";
@@ -23,11 +24,12 @@ export default async function Home() {
 
   return (
     <>
-      <Hero content={content.hero} bgSettings={content.background} />
+      <Hero content={content.hero} bgSettings={content.background} pricing={content.pricing} />
       <Marquee />
+      <BentoShowcase pricing={content.pricing} fuelPrices={content.fuelPrices} />
       <Services items={content.services} />
       <Advantages />
-      <Calculator />
+      <Calculator fuelPrices={content.fuelPrices} pricing={content.pricing} />
       <Brands />
 
       {latestInstallations.length > 0 && (

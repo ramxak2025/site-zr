@@ -56,33 +56,44 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick actions */}
-      <div className="grid sm:grid-cols-3 gap-4 mb-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <Link href="/admin/installations/new" className="admin-card p-5 hover:bg-white/[0.04] transition-all group">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
               <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 4.5v15m7.5-7.5h-15" /></svg>
             </div>
             <div>
-              <div className="text-white font-medium text-sm">Новая установка</div>
-              <div className="text-gray-500 text-xs">Добавить работу</div>
+              <div className="text-white font-medium text-sm">Новая работа</div>
+              <div className="text-gray-500 text-xs">Добавить установку</div>
             </div>
           </div>
         </Link>
-        <Link href="/admin/installations" className="admin-card p-5 hover:bg-white/[0.04] transition-all group">
+        <Link href="/admin/pricing" className="admin-card p-5 hover:bg-white/[0.04] transition-all group">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
-              <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+              <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /></svg>
             </div>
             <div>
-              <div className="text-white font-medium text-sm">Все установки</div>
-              <div className="text-gray-500 text-xs">Управление</div>
+              <div className="text-white font-medium text-sm">Цены установки</div>
+              <div className="text-gray-500 text-xs">4 / 6 / 8 цил + впрыск</div>
+            </div>
+          </div>
+        </Link>
+        <Link href="/admin/fuel" className="admin-card p-5 hover:bg-white/[0.04] transition-all group">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors">
+              <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M12 3v2.25m0 13.5V21M5.636 5.636l1.591 1.591m9.546 9.546l1.591 1.591M3 12h2.25m13.5 0H21m-2.636-6.364l-1.591 1.591m-9.546 9.546l-1.591 1.591" /></svg>
+            </div>
+            <div>
+              <div className="text-white font-medium text-sm">Цены топлива</div>
+              <div className="text-gray-500 text-xs">Бензин и газ</div>
             </div>
           </div>
         </Link>
         <Link href="/admin/content" className="admin-card p-5 hover:bg-white/[0.04] transition-all group">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors">
-              <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+              <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z" /></svg>
             </div>
             <div>
               <div className="text-white font-medium text-sm">Контент сайта</div>
