@@ -1,18 +1,20 @@
-/* ── Simple role-based authentication ──────────────────────
+/* ── Role-based authentication ──────────────────────────────
  * Two roles:
  *   admin      — полный доступ ко всему (контент, установки, цены, топливо)
  *   moderator  — ограниченный доступ: установки + цены + топливо
  *
- * В production рекомендуется перейти на OAuth/JWT с HttpOnly cookies.
- * Пароли читаются из ENV, fallback — дефолтные значения для разработки.
+ * Пароли и токен-ключ читаются из ENV переменных.
+ * Fallback-значения только для dev-окружения.
+ * В production обязательно задайте ADMIN_PASSWORD, MODERATOR_PASSWORD, AUTH_SECRET.
  * ───────────────────────────────────────────────────────────*/
+
+import crypto from "crypto";
 
 export type Role = "admin" | "moderator";
 
 export interface Credentials {
   role: Role;
   label: string;
-  // permissions
   canEditContent: boolean;
   canEditInstallations: boolean;
   canEditPricing: boolean;
@@ -21,12 +23,23 @@ export interface Credentials {
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "zrauto2024";
 const MODERATOR_PASSWORD = process.env.MODERATOR_PASSWORD ?? "moder2024";
+const AUTH_SECRET = process.env.AUTH_SECRET ?? "dev_secret_change_in_production";
 
-export const ADMIN_TOKEN = "zrauto_admin_2024";
-export const MODERATOR_TOKEN = "zrauto_moder_2024";
+/** Generate HMAC-based token for a role */
+function generateToken(role: Role): string {
+  const hmac = crypto.createHmac("sha256", AUTH_SECRET);
+  hmac.update(role);
+  return `${role}:${hmac.digest("hex")}`;
+}
+
+export const ADMIN_TOKEN = generateToken("admin");
+export const MODERATOR_TOKEN = generateToken("moderator");
 
 /** Проверка пароля на сервере */
 export function verifyPassword(password: string): Credentials | null {
+  if (typeof password !== "string" || password.length < 1 || password.length > 200) {
+    return null;
+  }
   if (password === ADMIN_PASSWORD) {
     return {
       role: "admin",
@@ -52,8 +65,10 @@ export function verifyPassword(password: string): Credentials | null {
 
 /** Проверка токена авторизации (из заголовка) */
 export function verifyToken(token: string | null): Credentials | null {
-  if (!token) return null;
-  if (token === ADMIN_TOKEN) {
+  if (!token || typeof token !== "string") return null;
+
+  // Constant-time comparison to prevent timing attacks
+  if (token.length === ADMIN_TOKEN.length && crypto.timingSafeEqual(Buffer.from(token), Buffer.from(ADMIN_TOKEN))) {
     return {
       role: "admin",
       label: "Администратор",
@@ -63,7 +78,7 @@ export function verifyToken(token: string | null): Credentials | null {
       canEditFuel: true,
     };
   }
-  if (token === MODERATOR_TOKEN) {
+  if (token.length === MODERATOR_TOKEN.length && crypto.timingSafeEqual(Buffer.from(token), Buffer.from(MODERATOR_TOKEN))) {
     return {
       role: "moderator",
       label: "Модератор",

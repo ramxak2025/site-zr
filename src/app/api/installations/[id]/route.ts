@@ -25,7 +25,18 @@ export async function PUT(
   }
 
   const { id } = await params;
-  const data = await request.json();
+
+  let data;
+  try {
+    data = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Некорректный JSON" }, { status: 400 });
+  }
+
+  if (!data || typeof data !== "object") {
+    return NextResponse.json({ error: "Некорректные данные" }, { status: 400 });
+  }
+
   await saveInstallation({ ...data, id });
   return NextResponse.json({ success: true });
 }
