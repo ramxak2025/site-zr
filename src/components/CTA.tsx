@@ -11,104 +11,74 @@ export default function CTA({ contacts }: { contacts?: ContactsContent; bgSettin
   const whatsapp = contacts?.whatsappUrl ?? "https://wa.me/79884444485";
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-dark">
-      {/* BG mesh */}
+    <section className="relative py-16 md:py-28 overflow-hidden bg-dark">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.06] rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/[0.03] rounded-full blur-[80px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.08] rounded-full blur-[100px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Bento CTA Grid — 12 cols */}
-        <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-4 md:gap-5">
+        {/* Bento CTA Grid — 2 cols mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-3 md:gap-5">
 
-          {/* Main CTA — large card */}
-          <ScrollReveal animation="scale" className="md:col-span-6 lg:col-span-7">
-            <div className="relative overflow-hidden rounded-3xl bg-primary p-8 md:p-10 min-h-[320px] flex flex-col justify-between">
+          {/* Main CTA — full width mobile */}
+          <ScrollReveal animation="scale" className="col-span-2 md:col-span-6 lg:col-span-7">
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-primary p-6 md:p-10 min-h-[240px] md:min-h-[320px] flex flex-col justify-between">
               <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
               <div className="relative">
-                <div className="badge badge-dark mb-6 bg-white/20 border-white/20 text-white">
+                <div className="badge badge-dark mb-4 md:mb-6 bg-white/20 border-white/20 text-white">
                   <span className="w-1.5 h-1.5 rounded-full bg-white anim-pulse" />
                   Не откладывайте
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[0.95] tracking-tight mb-4">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-[0.95] tracking-tight mb-3 md:mb-4">
                   Каждый день без газа —
                   <br />
                   <span className="text-white/70">деньги на ветер</span>
                 </h2>
-                <p className="text-white/60 text-base md:text-lg max-w-md leading-relaxed">
-                  При пробеге 1 500 км/мес вы переплачиваете за бензин{" "}
-                  <span className="text-white font-semibold">~4 000 ₽ каждый месяц</span>
-                </p>
               </div>
-              <div className="relative flex flex-col sm:flex-row gap-3 mt-8">
-                <a
-                  href={whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-primary font-black px-7 py-4 text-lg rounded-xl transition-all duration-300 hover:shadow-xl shadow-lg shadow-black/20"
-                >
+              <div className="relative flex flex-col sm:flex-row gap-2 md:gap-3 mt-4 md:mt-8">
+                <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 md:gap-3 bg-white hover:bg-gray-100 text-primary font-black px-5 py-3 md:px-7 md:py-4 text-sm md:text-lg rounded-xl transition-all shadow-lg">
                   {WA_ICON}
-                  Записаться бесплатно
+                  Записаться
                 </a>
-                <a
-                  href={`tel:${phoneRaw}`}
-                  className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white font-semibold px-7 py-4 text-lg rounded-xl transition-all duration-300 hover:bg-white/10"
-                >
+                <a href={`tel:${phoneRaw}`} className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white font-semibold px-5 py-3 md:px-7 md:py-4 text-sm md:text-lg rounded-xl transition-all hover:bg-white/10">
                   {phone}
                 </a>
               </div>
             </div>
           </ScrollReveal>
 
-          {/* Stats column */}
-          <div className="md:col-span-6 lg:col-span-5 grid grid-cols-1 gap-4 md:gap-5">
-            {/* Monthly savings */}
-            <ScrollReveal animation="fade-up" delay={100}>
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-500/15 to-transparent border border-emerald-500/20 p-6 md:p-8 hover:border-emerald-500/30 transition-all">
-                <div className="text-white/40 text-xs tracking-widest uppercase font-semibold mb-2">Ежемесячная экономия</div>
-                <div className="text-4xl md:text-5xl font-black text-white tabular-nums">
-                  ~4 000 <span className="text-emerald-400 text-2xl">₽</span>
-                </div>
-                <div className="text-white/50 text-sm mt-2">при среднем пробеге 1 500 км/мес</div>
+          {/* Stats — 2 cols on mobile, stacked on md+ */}
+          <ScrollReveal animation="fade-up" delay={100} className="col-span-1 md:col-span-3 lg:col-span-5">
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-emerald-500/15 to-transparent border border-emerald-500/20 p-4 md:p-8 hover:border-emerald-500/30 transition-all h-full flex flex-col justify-center">
+              <div className="text-white/40 text-[10px] md:text-xs tracking-widest uppercase font-semibold mb-1 md:mb-2">Экономия</div>
+              <div className="text-2xl md:text-5xl font-black text-white tabular-nums">
+                ~4 000 <span className="text-emerald-400 text-lg md:text-2xl">₽</span>
               </div>
-            </ScrollReveal>
+              <div className="text-white/50 text-[10px] md:text-sm mt-1">в месяц</div>
+            </div>
+          </ScrollReveal>
 
-            {/* Payback */}
-            <ScrollReveal animation="fade-up" delay={200}>
-              <div className="relative overflow-hidden rounded-3xl bg-white/[0.04] border border-white/10 p-6 md:p-8 hover:bg-white/[0.06] transition-all">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                    <svg className="w-7 h-7 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="text-white font-bold text-xl">Окупаемость 3-6 мес</div>
-                    <div className="text-white/50 text-sm">Начните экономить уже на этой неделе</div>
-                  </div>
+          <ScrollReveal animation="fade-up" delay={200} className="col-span-1 md:col-span-3 lg:col-span-5">
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 p-4 md:p-8 hover:border-amber-500/30 transition-all h-full flex flex-col justify-center">
+              <div className="text-white/40 text-[10px] md:text-xs tracking-widest uppercase font-semibold mb-1 md:mb-2">Окупаемость</div>
+              <div className="text-2xl md:text-5xl font-black text-white">3-6</div>
+              <div className="text-white/50 text-[10px] md:text-sm mt-1">месяцев</div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal animation="fade-up" delay={300} className="col-span-2 md:col-span-6 lg:col-span-5">
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-white/[0.04] border border-white/10 p-4 md:p-8 hover:bg-white/[0.06] transition-all">
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 md:w-7 md:h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Schedule */}
-            <ScrollReveal animation="fade-up" delay={300}>
-              <div className="relative overflow-hidden rounded-3xl bg-white/[0.04] border border-white/10 p-6 md:p-8 hover:bg-white/[0.06] transition-all">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                    <svg className="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="text-white font-bold text-xl">Пн-Вс 9:00 — 19:00</div>
-                    <div className="text-white/50 text-sm">Пт с 14:00 / Без выходных</div>
-                  </div>
+                <div>
+                  <div className="text-white font-bold text-sm md:text-xl">Пн-Вс 9:00 — 19:00</div>
+                  <div className="text-white/50 text-[10px] md:text-sm">Пт с 14:00 / Без выходных</div>
                 </div>
               </div>
-            </ScrollReveal>
-          </div>
-
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

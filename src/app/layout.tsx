@@ -52,7 +52,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-white text-text antialiased font-sans pb-16 lg:pb-0">
+      <body className="bg-white text-text antialiased font-sans pb-20 lg:pb-0">
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer contacts={content.contacts} />
