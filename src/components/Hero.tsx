@@ -14,7 +14,6 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
   const c = content;
   const bg = bgSettings;
 
-  // Compose price list: if pricing from admin is set, use it (overrides hero.prices)
   const priceItems = pricing
     ? [
         { label: "4 цилиндра", price: `от ${formatPrice(pricing.cyl4.price)} ₽`, desc: pricing.cyl4.note, popular: false },
@@ -25,16 +24,17 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
     : c?.prices ?? [];
 
   return (
-    <section className="relative min-h-screen flex flex-col bg-dark overflow-hidden">
-      {/* Gradient mesh background */}
+    <section className="relative min-h-screen flex flex-col bg-white overflow-hidden">
+      {/* Subtle gradient mesh on white */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-primary/[0.08] rounded-full blur-[120px] mesh-blob" />
-        <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-primary/[0.04] rounded-full blur-[100px] mesh-blob-2" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gray-800/50 rounded-full blur-[120px] mesh-blob-3" />
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-[120px] mesh-blob" />
+        <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-orange-500/[0.02] rounded-full blur-[100px] mesh-blob-2" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-surface-alt rounded-full blur-[120px] mesh-blob-3" />
       </div>
 
       {bg?.enabled !== false && (
         <LiveBg
+          light
           smokeIntensity={bg?.smokeIntensity}
           accentMix={bg?.accentMix}
           speed={bg?.speed}
@@ -42,9 +42,9 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
         />
       )}
 
-      {/* Logo watermark — right-top on mobile, center-right on desktop */}
+      {/* Logo watermark — very subtle on white */}
       <div className="absolute inset-0 pointer-events-none z-[2]">
-        <div className="absolute top-16 -right-8 sm:top-20 sm:-right-4 lg:top-1/2 lg:right-[8%] lg:-translate-y-1/2 anim-logo-drift">
+        <div className="absolute top-16 -right-8 sm:top-20 sm:-right-4 lg:top-1/2 lg:right-[8%] lg:-translate-y-1/2 opacity-50 anim-logo-drift">
           <div className="anim-logo-reveal">
             <Image
               src="/images/logo.png"
@@ -66,14 +66,14 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
             {/* Left — Text */}
             <div className="lg:col-span-7">
               <div className="opacity-0 anim-fade delay-1">
-                <div className="badge badge-dark mb-6">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 anim-pulse" />
+                <div className="badge badge-red mb-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 anim-pulse" />
                   {c?.badge ?? "Запись открыта"}
                 </div>
               </div>
 
               <div className="opacity-0 anim-fade-up delay-2">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black text-white leading-[0.92] tracking-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black text-text leading-[0.92] tracking-tight">
                   {(c?.headlineLines ?? ["Сократите", "расходы"]).map((line, i) => (
                     <span key={i}>{line}<br /></span>
                   ))}
@@ -81,14 +81,13 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
                 </h1>
               </div>
 
-              {/* Value props instead of boring paragraph */}
               <div className="opacity-0 anim-fade-up delay-3 mt-8 flex flex-wrap gap-x-6 gap-y-2">
                 {[
                   { icon: "💰", text: "Газ 28 ₽ vs Бензин 59 ₽" },
                   { icon: "⚡", text: "Установка за 1 день" },
                   { icon: "🛡", text: "Гарантия 2 года" },
                 ].map((prop) => (
-                  <span key={prop.text} className="flex items-center gap-2 text-white/50 text-sm">
+                  <span key={prop.text} className="flex items-center gap-2 text-text-secondary text-sm">
                     <span className="text-base">{prop.icon}</span>
                     {prop.text}
                   </span>
@@ -107,7 +106,7 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
                 </a>
                 <a
                   href={`tel:${(c?.phone ?? "+7 988 444-44-85").replace(/[\s()-]/g, "")}`}
-                  className="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/50 hover:text-white font-medium px-5 py-3 rounded-xl transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-2 border border-border hover:border-primary/30 text-text-secondary hover:text-primary font-medium px-5 py-3 rounded-xl transition-all duration-300"
                 >
                   {PHONE_ICON}
                   {c?.phone ?? "+7 988 444-44-85"}
@@ -115,13 +114,14 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
               </div>
             </div>
 
-            {/* Right — Price card (glass) */}
+            {/* Right — Price card */}
             <div className="hidden lg:block lg:col-span-5 opacity-0 anim-fade-up delay-6">
-              <div className="glass p-8 relative overflow-hidden">
+              <div className="bg-white rounded-2xl border border-border shadow-[0_8px_40px_rgba(0,0,0,0.06)] p-8 relative overflow-hidden">
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/[0.03] rounded-full blur-3xl" />
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-1 h-8 rounded-full bg-gradient-to-b from-primary to-orange-500" />
-                    <span className="text-white/50 text-sm tracking-widest uppercase font-medium">Стоимость установки</span>
+                    <span className="text-text-muted text-sm tracking-widest uppercase font-medium">Стоимость установки</span>
                   </div>
 
                   <div className="space-y-2">
@@ -130,36 +130,36 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
                         key={item.label}
                         className={`flex items-center justify-between p-4 rounded-xl transition-all duration-300 ${
                           item.popular
-                            ? "bg-white/[0.08] border border-white/10"
-                            : "hover:bg-white/[0.04] border border-transparent"
+                            ? "bg-primary/[0.05] border border-primary/15"
+                            : "hover:bg-surface border border-transparent"
                         }`}
                       >
                         <div>
                           <div className="flex items-center gap-2.5">
-                            <span className="text-white font-semibold text-sm">{item.label}</span>
+                            <span className="text-text font-semibold text-sm">{item.label}</span>
                             {item.popular && (
                               <span className="text-[10px] bg-primary text-white px-2 py-0.5 rounded font-bold tracking-wider uppercase">ХИТ</span>
                             )}
                           </div>
-                          <span className="text-white/40 text-xs">{item.desc}</span>
+                          <span className="text-text-muted text-xs">{item.desc}</span>
                         </div>
-                        <span className="text-white font-bold text-display">{item.price}</span>
+                        <span className="text-text font-bold text-display">{item.price}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-6 pt-5 border-t border-white/10">
+                  <div className="mt-6 pt-5 border-t border-border">
                     <div className="flex items-center gap-3">
                       <div className="flex -space-x-2">
                         {["bg-primary", "bg-orange-500", "bg-emerald-500"].map((cl, i) => (
-                          <div key={i} className={`w-8 h-8 rounded-full ${cl} border-2 border-dark flex items-center justify-center`}>
+                          <div key={i} className={`w-8 h-8 rounded-full ${cl} border-2 border-white flex items-center justify-center`}>
                             <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                           </div>
                         ))}
                       </div>
                       <div>
-                        <div className="text-white/60 text-xs">OMVL / Lovato / BRC</div>
-                        <div className="text-white/30 text-xs">Итальянское оборудование</div>
+                        <div className="text-text-secondary text-xs">OMVL / Lovato / BRC</div>
+                        <div className="text-text-muted text-xs">Итальянское оборудование</div>
                       </div>
                     </div>
                   </div>
@@ -171,7 +171,7 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
       </div>
 
       {/* Bottom stats bar */}
-      <div className="relative z-10 border-t border-white/[0.06]">
+      <div className="relative z-10 border-t border-border">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {(c?.stats ?? [
@@ -183,13 +183,13 @@ export default function Hero({ content, bgSettings, pricing }: { content?: HeroC
               <div
                 key={stat.label}
                 className={`px-6 py-7 opacity-0 anim-fade-up delay-${Math.min(i + 5, 8)} ${
-                  i < 3 ? "border-r border-white/[0.06]" : ""
-                } ${i < 2 ? "border-b lg:border-b-0 border-white/[0.06]" : ""}`}
+                  i < 3 ? "border-r border-border" : ""
+                } ${i < 2 ? "border-b lg:border-b-0 border-border" : ""}`}
               >
-                <div className="text-2xl sm:text-3xl font-black text-white text-display">
+                <div className="text-2xl sm:text-3xl font-black text-text text-display">
                   <AnimatedCounter end={stat.end} prefix={stat.prefix} suffix={stat.suffix} duration={2000} separator={stat.end > 100} />
                 </div>
-                <div className="text-white/30 text-xs tracking-wider uppercase mt-1">{stat.label}</div>
+                <div className="text-text-muted text-xs tracking-wider uppercase mt-1">{stat.label}</div>
               </div>
             ))}
           </div>

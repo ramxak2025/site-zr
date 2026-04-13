@@ -312,6 +312,11 @@ input[type="range"]::-moz-range-thumb {
   .bottom-nav-safe { padding-bottom: env(safe-area-inset-bottom); }
 }
 
+/* ═══════════ TAB BAR TRANSITIONS ═══════════ */
+.tab-transition {
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 /* ═══════════ INNER PAGES ═══════════ */
 .inner-page { padding-top: 0; padding-bottom: 4rem; background: var(--color-surface); }
 

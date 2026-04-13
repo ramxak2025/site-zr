@@ -5,10 +5,10 @@ export default function Marquee() {
   ];
 
   return (
-    <div className="bg-dark overflow-hidden py-4 select-none">
+    <div className="bg-surface border-y border-border overflow-hidden py-4 select-none">
       <div className="animate-marquee whitespace-nowrap flex">
         {[...Array(8)].map((_, i) => (
-          <span key={i} className="text-sm font-bold text-white tracking-[0.25em] uppercase">
+          <span key={i} className="text-sm font-bold text-text-secondary tracking-[0.25em] uppercase">
             {items.map((item, j) => (
               <span key={j}>
                 {item}

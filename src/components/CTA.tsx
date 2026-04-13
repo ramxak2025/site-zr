@@ -11,16 +11,15 @@ export default function CTA({ contacts }: { contacts?: ContactsContent; bgSettin
   const whatsapp = contacts?.whatsappUrl ?? "https://wa.me/79884444485";
 
   return (
-    <section className="relative py-16 md:py-28 overflow-hidden bg-dark">
+    <section className="relative py-16 md:py-28 overflow-hidden bg-surface">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.08] rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.02] rounded-full blur-[100px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Bento CTA Grid — 2 cols mobile */}
         <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-3 md:gap-5">
 
-          {/* Main CTA — full width mobile */}
+          {/* Main CTA — red card for impact */}
           <ScrollReveal animation="scale" className="col-span-2 md:col-span-6 lg:col-span-7">
             <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-primary p-6 md:p-10 min-h-[240px] md:min-h-[320px] flex flex-col justify-between">
               <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
@@ -47,34 +46,34 @@ export default function CTA({ contacts }: { contacts?: ContactsContent; bgSettin
             </div>
           </ScrollReveal>
 
-          {/* Stats — 2 cols on mobile, stacked on md+ */}
+          {/* Stats — light cards */}
           <ScrollReveal animation="fade-up" delay={100} className="col-span-1 md:col-span-3 lg:col-span-5">
-            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-emerald-500/15 to-transparent border border-emerald-500/20 p-4 md:p-8 hover:border-emerald-500/30 transition-all h-full flex flex-col justify-center">
-              <div className="text-white/40 text-[10px] md:text-xs tracking-widest uppercase font-semibold mb-1 md:mb-2">Экономия</div>
-              <div className="text-2xl md:text-5xl font-black text-white tabular-nums">
-                ~4 000 <span className="text-emerald-400 text-lg md:text-2xl">₽</span>
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-accent/8 to-transparent border border-accent/15 p-4 md:p-8 hover:border-accent/25 transition-all h-full flex flex-col justify-center">
+              <div className="text-text-muted text-[10px] md:text-xs tracking-widest uppercase font-semibold mb-1 md:mb-2">Экономия</div>
+              <div className="text-2xl md:text-5xl font-black text-text tabular-nums">
+                ~4 000 <span className="text-accent text-lg md:text-2xl">₽</span>
               </div>
-              <div className="text-white/50 text-[10px] md:text-sm mt-1">в месяц</div>
+              <div className="text-text-muted text-[10px] md:text-sm mt-1">в месяц</div>
             </div>
           </ScrollReveal>
 
           <ScrollReveal animation="fade-up" delay={200} className="col-span-1 md:col-span-3 lg:col-span-5">
-            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 p-4 md:p-8 hover:border-amber-500/30 transition-all h-full flex flex-col justify-center">
-              <div className="text-white/40 text-[10px] md:text-xs tracking-widest uppercase font-semibold mb-1 md:mb-2">Окупаемость</div>
-              <div className="text-2xl md:text-5xl font-black text-white">3-6</div>
-              <div className="text-white/50 text-[10px] md:text-sm mt-1">месяцев</div>
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-amber-500/8 to-transparent border border-amber-500/15 p-4 md:p-8 hover:border-amber-500/25 transition-all h-full flex flex-col justify-center">
+              <div className="text-text-muted text-[10px] md:text-xs tracking-widest uppercase font-semibold mb-1 md:mb-2">Окупаемость</div>
+              <div className="text-2xl md:text-5xl font-black text-text">3-6</div>
+              <div className="text-text-muted text-[10px] md:text-sm mt-1">месяцев</div>
             </div>
           </ScrollReveal>
 
           <ScrollReveal animation="fade-up" delay={300} className="col-span-2 md:col-span-6 lg:col-span-5">
-            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-white/[0.04] border border-white/10 p-4 md:p-8 hover:bg-white/[0.06] transition-all">
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-white border border-border p-4 md:p-8 hover:shadow-lg transition-all">
               <div className="flex items-center gap-3 md:gap-4">
-                <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5 md:w-7 md:h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-blue-500/10 border border-blue-500/15 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 md:w-7 md:h-7 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
                 <div>
-                  <div className="text-white font-bold text-sm md:text-xl">Пн-Вс 9:00 — 19:00</div>
-                  <div className="text-white/50 text-[10px] md:text-sm">Пт с 14:00 / Без выходных</div>
+                  <div className="text-text font-bold text-sm md:text-xl">Пн-Вс 9:00 — 19:00</div>
+                  <div className="text-text-muted text-[10px] md:text-sm">Пт с 14:00 / Без выходных</div>
                 </div>
               </div>
             </div>
