@@ -122,8 +122,8 @@ export default function Header() {
       </header>
 
       {/* Mobile bottom nav — iOS 26 Liquid Glass */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bottom-nav-safe p-2">
-        <div className="liquid-glass rounded-2xl mx-auto max-w-md">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden pb-[max(0.75rem,env(safe-area-inset-bottom))] px-4">
+        <div className="liquid-glass rounded-[20px] mx-auto max-w-md">
           <div className="flex items-center justify-around h-16 px-1">
             {BOTTOM_NAV.map((link) => {
               const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -134,7 +134,7 @@ export default function Header() {
                     key={link.label}
                     href={link.href}
                     {...(link.isNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl text-white/50 active:text-white active:bg-white/10 transition-all min-w-0"
+                    className="flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl text-text-muted active:text-primary active:bg-primary/5 transition-all min-w-0"
                   >
                     {link.icon}
                     <span className="text-[10px] font-medium truncate">{link.label}</span>
@@ -148,8 +148,8 @@ export default function Header() {
                   href={link.href}
                   className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl transition-all duration-200 min-w-0 ${
                     isActive
-                      ? "text-white bg-white/15"
-                      : "text-white/50 active:text-white active:bg-white/10"
+                      ? "text-primary bg-primary/8"
+                      : "text-text-muted active:text-primary active:bg-primary/5"
                   }`}
                 >
                   {link.icon}
